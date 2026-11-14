@@ -3,11 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>二年级数学体检站 · 8关24题</title>
+<title>二年级数学全册诊断 · 14单元42题</title>
 <meta name="theme-color" content="#4f46e5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
+<script type="application/json" id="widget-config">
+{
+  "type": "game",
+  "gameType": "diagnostic-adventure",
+  "description": "二年级数学全册诊断：14 个单元 × 3 题（★基础/★★中等/★★★挑战）= 42 题，含数字键盘作答与选择题，答完自动生成单元诊断 + 错法归因 + 一键分享结果码",
+  "gameConfig": {
+    "levels": [
+      { "id": "unit_len", "name": "长度单位与线段", "term": "二上" },
+      { "id": "add100",   "name": "100以内加减法", "term": "二上" },
+      { "id": "angle",    "name": "角的初步认识",   "term": "二上" },
+      { "id": "mul",      "name": "表内乘法",       "term": "二上" },
+      { "id": "observe",  "name": "观察物体",       "term": "二上" },
+      { "id": "time",     "name": "认识时间",       "term": "二上" },
+      { "id": "pair",     "name": "数学广角·搭配",  "term": "二上" },
+      { "id": "div",      "name": "表内除法",       "term": "二下" },
+      { "id": "rem",      "name": "有余数的除法",   "term": "二下" },
+      { "id": "mixed",    "name": "混合运算",       "term": "二下" },
+      { "id": "big",      "name": "万以内数的认识", "term": "二下" },
+      { "id": "weight",   "name": "克与千克",       "term": "二下" },
+      { "id": "motion",   "name": "图形的运动",     "term": "二下" },
+      { "id": "data",     "name": "数据整理与推理", "term": "二下" }
+    ],
+    "answerTypes": ["choice", "num"],
+    "successCondition": "完成 42 题并生成诊断报告",
+    "levels_count": 14
+  },
+  "scoring": { "maxStars": 42, "rule": "首次答对 1 题得 1 星" },
+  "achievements": [
+    { "id": "all_clear", "name": "全对猎手", "description": "42 题全对", "icon": "🏆" },
+    { "id": "hard_solver", "name": "挑战者", "description": "14 道挑战题至少对 10 道", "icon": "🔥" },
+    { "id": "steady", "name": "稳扎稳打", "description": "14 道基础题全对", "icon": "🌱" }
+  ]
+}
+</script>
 <style>
   :root{
     --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
@@ -19,10 +53,9 @@
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
   html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-  body{overscroll-behavior-y:contain}
   body{
     font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-    color:var(--ink);
+    color:var(--ink);overscroll-behavior-y:contain;
     background:linear-gradient(165deg,#eef6ff 0%,#f7f0ff 52%,#fff5f5 100%);
     min-height:100vh;padding:16px 14px 32px;line-height:1.55;
   }
@@ -31,6 +64,7 @@
   .card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 12px 34px rgba(79,70,229,.10),0 2px 6px rgba(0,0,0,.04)}
   h1{font-size:25px;margin:0 0 6px;letter-spacing:.3px}
   h2{font-size:19px;margin:0 0 12px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
   .hero{
     text-align:center;padding:26px 20px 22px;
     background:linear-gradient(150deg,#4f46e5,#7c3aed 60%,#db2777);
@@ -38,12 +72,14 @@
     box-shadow:0 14px 34px rgba(124,58,237,.28);
   }
   .hero .emoji{font-size:40px;line-height:1}
-  .hero h1{font-size:24px;margin:8px 0 4px;color:#fff}
+  .hero h1{font-size:23px;margin:8px 0 4px;color:#fff}
   .hero p{margin:0;font-size:13.5px;opacity:.92}
-  .rules{list-style:none;padding:0;margin:0 0 16px}
+  .rules{list-style:none;padding:0;margin:0 0 14px}
   .rules li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-bottom:8px;background:#f8fafc;border-radius:12px;font-size:15px}
   .rules .b{flex:0 0 auto}
   .tip{font-size:13.5px;color:#92400e;background:var(--warn-soft);border:1px solid #fde68a;border-radius:12px;padding:11px 13px;margin-bottom:16px}
+  .cov{font-size:13.5px;color:#374151;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:16px;line-height:1.75}
+  .cov b{color:#4f46e5}
   .btn{display:block;width:100%;min-height:56px;padding:15px 18px;border:none;border-radius:14px;font-size:19px;font-weight:800;font-family:inherit;cursor:pointer;transition:transform .08s,box-shadow .15s}
   .btn:active{transform:scale(.985)}
   .btn.primary{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;box-shadow:0 10px 22px rgba(79,70,229,.30)}
@@ -56,7 +92,8 @@
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
   .badge{font-size:13px;font-weight:800;padding:6px 11px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
   .badge.tag{background:#fff7ed;color:#b45309}
-  .question{font-size:27px;font-weight:800;line-height:1.35;margin:2px 0 18px;letter-spacing:.4px;word-break:break-word}
+  .badge.term{background:#ecfdf5;color:#047857}
+  .question{font-size:26px;font-weight:800;line-height:1.4;margin:2px 0 16px;letter-spacing:.4px;word-break:break-word}
   .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:14px 16px;margin:0 0 10px;border:2px solid var(--line);border-radius:15px;background:#fff;font-size:20px;font-weight:700;color:var(--ink);font-family:inherit;text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
   .opt:hover{border-color:#c7d2fe;background:#f8faff}
   .opt .key{flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:14px;font-weight:800}
@@ -65,11 +102,36 @@
   .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
   .opt.wrong .key{background:var(--bad);color:#fff}
   .opt.dim{opacity:.45}
+  /* ===== 数字键盘 ===== */
+  .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:4px 0 12px}
+  .pad-display{
+    grid-column:1 / -1;min-height:66px;border:2px solid #c7d2fe;border-radius:14px;background:#f8faff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:34px;font-weight:800;letter-spacing:3px;color:var(--brand);
+  }
+  .pad-display.empty{color:#c7d2fe;font-size:20px;letter-spacing:0;font-weight:700}
+  .pad button{
+    min-height:62px;border:2px solid var(--line);border-radius:13px;background:#fff;
+    font-family:inherit;font-size:25px;font-weight:800;color:var(--ink);cursor:pointer;
+    transition:transform .06s,background .12s;
+  }
+  .pad button:active{transform:scale(.97);background:#eef2ff}
+  .pad button.del{background:#fff7ed;border-color:#fed7aa;color:#b45309;font-size:22px}
+  .pad button.ok{background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;color:#fff;font-size:20px}
+  .pad button:disabled{opacity:.42}
+  .pad-hint{font-size:13px;color:var(--muted);text-align:center;margin:-4px 0 10px}
   .feedback{margin-top:6px;padding:14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line)}
   .fb-title{font-size:17px;font-weight:800;margin-bottom:6px}
   .fb-title.ok{color:var(--ok)}
   .fb-title.bad{color:var(--bad)}
   .fb-why{font-size:15px;color:#374151;margin-bottom:14px}
+  .fb-diag{font-size:13.5px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:8px 11px;margin-bottom:12px}
+  /* ===== 休息屏 ===== */
+  .rest{text-align:center;padding:26px 18px}
+  .rest .big{font-size:46px;line-height:1}
+  .rest h2{font-size:21px;margin:10px 0 6px}
+  .rest p{color:var(--muted);font-size:14.5px;margin:0 0 18px}
+  /* ===== 报告 ===== */
   .score-wrap{display:flex;align-items:center;gap:16px;margin-bottom:8px}
   .score-ring{flex:0 0 96px;width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#7c3aed var(--deg,0deg),#eef2ff 0deg)}
   .score-inner{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
@@ -77,6 +139,7 @@
   .score-lab{font-size:11px;color:var(--muted)}
   .score-txt b{font-size:19px}
   .score-txt div{font-size:14px;color:var(--muted)}
+  .grp{font-size:13px;font-weight:800;color:#7c3aed;margin:14px 0 8px;padding-left:8px;border-left:4px solid #c4b5fd}
   .band{margin-bottom:11px}
   .band-head{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:5px}
   .band-head .r{color:var(--muted);font-weight:600}
@@ -84,7 +147,7 @@
   .track i{display:block;height:100%;border-radius:99px}
   .advice-block{margin-top:18px;padding:14px;border-radius:14px;background:#faf5ff;border:1px solid #e9d5ff}
   .advice-block h3{font-size:15px;margin:0 0 8px;color:#6d28d9}
-  .advice-item{font-size:14.5px;margin-bottom:10px;padding-left:2px}
+  .advice-item{font-size:14.5px;margin-bottom:10px}
   .advice-item b{color:#6d28d9}
   .conclusion{margin-top:14px;padding:13px 14px;border-radius:13px;font-size:15px;font-weight:600;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
   details{margin-top:16px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -103,80 +166,103 @@
   .code-box{margin-top:12px;padding:12px 13px;border-radius:12px;background:#f0fdf4;border:1px solid #bbf7d0}
   .code-lab{font-size:13.5px;color:#166534;margin-bottom:7px}
   .code-val{
-    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:19px;font-weight:700;
-    letter-spacing:1.2px;color:#14532d;background:#fff;border:1px dashed #86efac;border-radius:8px;
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:16px;font-weight:700;
+    letter-spacing:1px;color:#14532d;background:#fff;border:1px dashed #86efac;border-radius:8px;
     padding:9px 11px;text-align:center;user-select:all;-webkit-user-select:all;word-break:break-all;
   }
-  /* ===== 手机适配 ===== */
   @media (max-width: 430px){
     body{padding:12px 11px calc(28px + env(safe-area-inset-bottom))}
     .card{padding:16px;border-radius:16px}
     .hero{padding:22px 16px 20px;border-radius:18px}
-    .hero h1{font-size:22px}
+    .hero h1{font-size:21px}
     h1{font-size:22px}
-    .question{font-size:23px;margin:2px 0 14px}
+    .question{font-size:22px;margin:2px 0 13px}
     .opt{font-size:18.5px;min-height:54px;padding:12px 14px;margin-bottom:9px}
-    .fb-title{font-size:16px}
-    .fb-why{font-size:14.5px}
+    .pad button{min-height:58px;font-size:23px}
+    .pad-display{min-height:60px;font-size:30px}
     .rules li{font-size:14.5px;padding:9px 11px}
   }
   @media (max-width: 350px){
-    .question{font-size:20px}
+    .question{font-size:19.5px}
     .opt{font-size:17px;gap:9px}
     .opt .key{flex:0 0 26px;width:26px;height:26px;font-size:13px}
+    .pad button{min-height:52px;font-size:21px}
   }
-  /* 打印：给家长一份纸质版备用 */
   @media print{
     body{background:#fff;padding:0}
     .hero{background:#fff;color:#000;box-shadow:none;border:2px solid #000}
     .hero h1{color:#000}
-    .btn,.feedback{display:none !important}
+    .btn,.feedback,.pad{display:none !important}
   }
 </style>
 </head>
 <body>
 <div class="app">
 
+  <!-- ============ 开始页 ============ -->
   <section id="start-screen">
     <div class="hero">
       <div class="emoji">🧮</div>
-      <h1>二年级数学体检站</h1>
-      <p>8 个关卡 · 24 道题 · 大约 15 分钟</p>
+      <h1>二年级数学全册诊断</h1>
+      <p>14 个单元 · 42 道题 · 大约 15–20 分钟</p>
     </div>
     <div class="card">
+      <div class="cov">
+        <b>覆盖二年级全册 14 个单元</b><br>
+        二上：长度单位与线段 · 100以内加减法 · 角的初步认识 · 表内乘法 · 观察物体 · 认识时间 · 数学广角·搭配<br>
+        二下：表内除法 · 有余数的除法 · 混合运算 · 万以内数的认识 · 克与千克 · 图形的运动 · 数据整理与推理
+      </div>
       <ul class="rules">
-        <li><span class="b">1️⃣</span><span>一题一题做，每题只有一个正确答案，做完马上知道对错。</span></li>
-        <li><span class="b">2️⃣</span><span>每关 3 道题：<b>基础 → 中等 → 挑战</b>，越来越难，很正常。</span></li>
-        <li><span class="b">3️⃣</span><span>不会的题可以猜一个，<b>不要空着</b>——猜错也能帮我们找到问题。</span></li>
-        <li><span class="b">4️⃣</span><span>做完自动出「体检报告」：哪块扎实、哪块要补，一目了然。</span></li>
+        <li><span class="b">1️⃣</span><span>每关 3 题：<b>基础 → 中等 → 挑战</b>，一共 14 关。</span></li>
+        <li><span class="b">2️⃣</span><span>有的题是<b>点选项</b>，有的是<b>用数字键盘打字</b>——数字题要自己算，选不出来。</span></li>
+        <li><span class="b">3️⃣</span><span>不会可以猜，<b>但不要空着</b>；每题做完马上有讲解。</span></li>
+        <li><span class="b">4️⃣</span><span>做到一半会提醒休息，<b>随时可以停下来</b>，下次重新开始也行。</span></li>
       </ul>
       <div class="tip">
-        👨‍👩‍👧 <b>给家长：</b>请让孩子独立完成，不要提示答案、不要说「再想想」。要看他真实的水平，错的题越真实越有用。做完把报告里的<b>红色/黄色板块</b>告诉我。
+        👨‍👩‍👧 <b>给家长：</b>让孩子独立做，<b>不要提示、不要催</b>。数字题他必须在纸上打草稿或心里算——这就是我们要看的。
+        做完在报告页点「📤 一键发给老师」，我直接收到完整数据，不用截图。
       </div>
-      <button id="start-btn" class="btn primary" type="button" onclick="startQuiz()">开始体检 🚀</button>
+      <button id="start-btn" class="btn primary" type="button" onclick="startQuiz()">开始诊断 🚀</button>
     </div>
   </section>
 
+  <!-- ============ 休息页 ============ -->
+  <section id="rest-screen" class="hidden">
+    <div class="card rest">
+      <div class="big">🥤</div>
+      <h2>做了一半，休息一下</h2>
+      <p>已经完成 21 题，还剩 21 题。<br>站起来动一动，喝口水再回来。</p>
+      <button class="btn primary" type="button" onclick="resumeFromRest()">休息好了，继续 →</button>
+    </div>
+  </section>
+
+  <!-- ============ 答题页 ============ -->
   <section id="quiz-screen" class="hidden">
     <div class="topbar">
-      <div class="qcount" id="qcount">1 / 24</div>
+      <div class="qcount" id="qcount">1 / 42</div>
       <div class="stars" id="stars">⭐ 0</div>
     </div>
     <div class="bar"><div class="bar-in" id="bar-fill"></div></div>
     <div class="card">
       <div class="badges">
         <span class="badge" id="lv-badge">第 1 关</span>
+        <span class="badge term" id="lv-term">二上</span>
         <span class="badge tag" id="lv-tag">★ 基础</span>
       </div>
       <div class="question" id="question">题目</div>
       <div id="opts"></div>
+      <div id="padwrap" class="hidden">
+        <div class="pad" id="pad"></div>
+        <div class="pad-hint">先算出来，再用键盘输入答案</div>
+      </div>
       <div id="feedback" class="feedback hidden"></div>
     </div>
   </section>
 
+  <!-- ============ 报告页 ============ -->
   <section id="report-screen" class="hidden">
     <div class="card">
-      <h2>📋 数学体检报告</h2>
+      <h2>📋 全册诊断报告</h2>
       <div class="score-wrap">
         <div class="score-ring" id="score-ring">
           <div class="score-inner">
@@ -192,7 +278,7 @@
         </div>
       </div>
 
-      <h2 style="margin-top:18px;font-size:16px">各板块掌握情况</h2>
+      <h2 style="margin-top:18px;font-size:16px">各单元掌握情况</h2>
       <div id="band-list"></div>
 
       <div class="conclusion" id="conclusion">—</div>
@@ -203,7 +289,7 @@
       </div>
 
       <details id="mist-details">
-        <summary>看看错题（家长可以照着念给我）</summary>
+        <summary>看看错题（含「他是怎么错的」）</summary>
         <ul class="mist-list" id="mist-list"></ul>
       </details>
 
@@ -221,219 +307,254 @@
 </div>
 
 <script>
+/* ============================================================
+   题库：二年级全册 14 单元 × 3 题（★基础 / ★★中等 / ★★★挑战）
+   type: 'choice' 选择题（traps.v = 选项下标）
+         'num'    数字输入（traps.v = 数值）
+   traps: 常见错法 → 用于判病因（不进答案，只用于归因）
+   ============================================================ */
 var BANKS = [
-  {
-    name: '100以内加减法',
-    advice: '每天 5 分钟口算专项，先 20 以内进退位、再 100 以内。要求<b>边算边小声说算理</b>（"个位 5+7=12，写 2 进 1"），不要只报答案——说得出才说明真懂。',
-    qs: [
-      { lv:1, q:'45 + 27 = ?', opts:['62','72','71','82'], a:1,
-        why:'个位 5+7=12，写 2、向十位进 1；十位 4+2+1=7，所以是 72。出错最多的是忘记进位（选 62）。' },
-      { lv:2, q:'63 − 28 = ?', opts:['45','35','36','41'], a:1,
-        why:'个位 3 不够减 8，向十位借 1：13−8=5；十位剩 5−2=3，所以是 35。忘记退位就会得到 45。' },
-      { lv:3, q:'100 − 46 = ?', opts:['54','64','44','56'], a:0,
-        why:'连续退位：个位 0 不够减，借来 10，10−6=4；十位剩 9，9−4=5，所以是 54。' }
-    ]
-  },
-  {
-    name: '表内乘法',
-    advice: '乘法口诀要背到<b>条件反射</b>，不是慢慢推。三步：①按顺序背 ②随机抽背（家长说"七六"，孩子秒答）③倒着问（"42 是几乘几"）。每天 3 分钟，比做 100 道题有用。',
-    qs: [
-      { lv:1, q:'6 × 7 = ?', opts:['36','42','48','49'], a:1,
-        why:'六七四十二。容易混的是 6×6=36、6×8=48、7×7=49。' },
-      { lv:2, q:'8 × 9 = ?', opts:['63','72','81','64'], a:1,
-        why:'八九七十二。常见错误是把 8×9 记成 8×8=64 或 9×9=81。' },
-      { lv:3, q:'一盒彩笔有 5 支，买 7 盒，一共有多少支？', opts:['12','30','35','40'], a:2,
-        why:'求"几个几"用乘法：5×7=35（支）。看到"每盒…共几盒"就是乘法信号。' }
-    ]
-  },
-  {
-    name: '表内除法',
-    advice: '除法不要硬算，要<b>用口诀反推</b>：42÷6 就想"几六四十二"→7。先保证口诀熟，再做除法，顺序反了会一直慢。',
-    qs: [
-      { lv:1, q:'42 ÷ 6 = ?', opts:['6','7','8','9'], a:1,
+  { term:'二上', name:'长度单位与线段',
+    advice:'建立身体参照物：指甲宽≈1厘米、张开双臂≈1米、脚步≈50厘米。线段要会用尺子量、会画指定长度。',
+    qs:[
+      { lv:1, type:'num', q:'一根绳子长 1 米，合多少厘米？', ans:100,
+        traps:[{v:10,d:'把米和分米搞混了'},{v:1000,d:'把米和毫米搞混了'}],
+        why:'1 米 = 100 厘米。记住身体参照：张开双臂大约 1 米，也就是大约 100 个指甲盖那么宽。' },
+      { lv:2, type:'choice', q:'下面哪个物品的长度最接近 1 米？', opts:['课桌的长','铅笔的长','一枚硬币的厚度'], a:0,
+        traps:[{v:1,d:'把铅笔当成米级长度'},{v:2,d:'没有长度参照物'}],
+        why:'课桌大约 1 米长；铅笔约 18 厘米（不到 1 米）；硬币厚度约 2 毫米。选单位前先想「它有多大」。' },
+      { lv:3, type:'num', q:'一条线段长 6 厘米，另一条比它长 3 厘米。两条线段一共长多少厘米？', ans:15,
+        traps:[{v:9,d:'只算了第二条的长度（6+3=9），忘了问的是一共'},{v:12,d:'以为两条一样长，算了 6+6'}],
+        why:'第一条 6 厘米；第二条 6+3=9 厘米；一共 6+9=15 厘米。两步题要先算出第二条。' }
+    ]},
+
+  { term:'二上', name:'100以内加减法',
+    advice:'每天 5 分钟口算，先 20 以内进退位、再 100 以内。要求边算边说出算理（「个位 5+7=12，写2进1」），说得出才算真懂。',
+    qs:[
+      { lv:1, type:'num', q:'45 + 27 = ?', ans:72,
+        traps:[{v:62,d:'个位进上来的 1 忘了加到十位'},{v:71,d:'个位相加算错'}],
+        why:'个位 5+7=12，写 2、向十位进 1；十位 4+2+1=7，所以是 72。忘进位就会得 62。' },
+      { lv:2, type:'num', q:'63 − 28 = ?', ans:35,
+        traps:[{v:45,d:'个位不够减却没退位'},{v:41,d:'退位后十位没减 1'}],
+        why:'个位 3 不够减 8，向十位借 1：13−8=5；十位剩 5−2=3，所以是 35。' },
+      { lv:3, type:'num', q:'100 − 46 = ?', ans:54,
+        traps:[{v:64,d:'只退了一次位（连续退位没做对）'},{v:56,d:'个位相减算错'}],
+        why:'连续退位：个位 0 借来 10，10−6=4；十位是 0 也借不动，要向百位借，十位剩 9，9−4=5。答案是 54。' }
+    ]},
+
+  { term:'二上', name:'角的初步认识',
+    advice:'一个角就是「1 个顶点 + 2 条边」。用三角尺的直角去比一比：和直角一样大是直角，比直角小是锐角，比直角大是钝角。',
+    qs:[
+      { lv:1, type:'choice', q:'一个角有几个顶点？', opts:['1 个','2 个','3 个'], a:0,
+        traps:[{v:1,d:'把「边」当成了顶点'},{v:2,d:'把角和三角形搞混了'}],
+        why:'一个角由 1 个顶点和 2 条边组成。三角形才有 3 个顶点——这是两回事。' },
+      { lv:2, type:'choice', q:'三角尺上最大的那个角是（ ）。', opts:['锐角','直角','钝角'], a:1,
+        traps:[{v:0,d:'不知道三角尺的直角在哪'},{v:2,d:'凭「看起来很大」判断'}],
+        why:'一副三角尺上的角只有直角和锐角两种，最大的就是那个直角。用另一个三角尺的直角去对，能完全重合。' },
+      { lv:3, type:'num', q:'一个长方形有几个直角？', ans:4,
+        traps:[{v:2,d:'只数了对边'},{v:1,d:'概念混淆'}],
+        why:'长方形四个角都是直角，一共 4 个。正方形也一样是 4 个直角。' }
+    ]},
+
+  { term:'二上', name:'表内乘法',
+    advice:'口诀要背到「条件反射」，不是慢慢推。三步：①按顺序背 ②随机抽背（家长说「七六」，孩子秒答）③倒着问（「42 是几乘几」）。每天 3 分钟。',
+    qs:[
+      { lv:1, type:'num', q:'6 × 7 = ?', ans:42,
+        traps:[{v:36,d:'和 6×6 记串了'},{v:48,d:'和 6×8 记串了'}],
+        why:'六七四十二。容易串的三个：6×6=36、6×8=48、7×7=49。' },
+      { lv:2, type:'num', q:'8 × 9 = ?', ans:72,
+        traps:[{v:63,d:'记成 7×9'},{v:81,d:'记成 9×9'}],
+        why:'八九七十二。8×9 是表内乘法最容易错的一条。' },
+      { lv:3, type:'num', q:'一盒彩笔有 5 支，买 7 盒，一共有多少支？', ans:35,
+        traps:[{v:12,d:'用了加法（5+7）'},{v:40,d:'多加了一盒'}],
+        why:'求「几个几」用乘法：5×7=35（支）。看到「每盒…共几盒」就是乘法信号。' }
+    ]},
+
+  { term:'二上', name:'观察物体',
+    advice:'拿一个实物（水杯、玩具），让孩子站到正面、侧面、后面、上面各看一次，说出「看到的形状一样吗」。看过实物，这类题就不会错。',
+    qs:[
+      { lv:1, type:'choice', q:'从正面、侧面、上面看同一个物体，看到的形状（ ）。', opts:['一定相同','可能不同','一定不同'], a:1,
+        traps:[{v:0,d:'以为物体只有一个形状'},{v:2,d:'以为一定不同'}],
+        why:'同一个物体从不同位置看，看到的形状可能不同——比如水杯从上面看是圆，从正面看是长方形。也可能相同，所以是「可能不同」。' },
+      { lv:2, type:'choice', q:'一个正方体，从上面看到的是什么形状？', opts:['正方形','长方形','三角形'], a:0,
+        traps:[{v:1,d:'把正方体和长方体搞混'},{v:2,d:'没有观察经验'}],
+        why:'正方体六个面都是同样的正方形，从哪个方向看都是正方形。' },
+      { lv:3, type:'choice', q:'小明站在不同位置给一个杯子拍照，照片里的杯子（ ）。', opts:['完全一样','可能不一样','一定不一样'], a:1,
+        traps:[{v:0,d:'以为照片和实物一一对应'},{v:2,d:'把「可能」判成「一定」'}],
+        why:'从不同位置拍，形状可能不同也可能相同（比如正好对称的位置），所以说「可能不一样」。注意区分「可能」和「一定」。' }
+    ]},
+
+  { term:'二上', name:'认识时间',
+    advice:'每天让孩子看真钟说时间 3 次。两个关键：分针走 1 大格 = 5 分钟（数格子 ×5）；时针在两个数字「之间」时，读小的那个数。',
+    qs:[
+      { lv:1, type:'num', q:'钟面上，分针走 1 大格是多少分钟？', ans:5,
+        traps:[{v:1,d:'把 1 大格当成 1 小格'},{v:12,d:'把 12 大格当成 1 大格'}],
+        why:'钟面一圈 12 大格，每大格里有 5 小格。分针走 1 大格就是 5 分钟。' },
+      { lv:2, type:'num', q:'时针在 3 和 4 之间，分针指着 6，现在是 3 时多少分？', ans:30,
+        traps:[{v:6,d:'把分针指的数字当成分钟数'},{v:15,d:'大格数看错了'}],
+        why:'分针指着 6，就是走过 6 个大格：6×5=30 分。时针在 3 和 4 之间说明还没到 4 点，所以是 3 时 30 分。' },
+      { lv:3, type:'num', q:'从 8:20 到 8:50，经过了多少分钟？', ans:30,
+        traps:[{v:70,d:'把两个时刻直接相加了'},{v:40,d:'算成了到 9 点'}],
+        why:'都在 8 点这一小时内，直接用分钟相减：50−20=30（分钟）。' }
+    ]},
+
+  { term:'二上', name:'数学广角·搭配',
+    advice:'搭配问题的铁律：有序地列，不重不漏。数字组数就固定十位、换个位；搭配衣服就用「一件上衣配所有裤子」。',
+    qs:[
+      { lv:1, type:'num', q:'用 1、2、3 三张数字卡片，任选两张组成两位数，一共能组成多少个？', ans:6,
+        traps:[{v:3,d:'只固定了一个十位就没往下数'},{v:9,d:'把 11、22 这种重复数字也算进去了'}],
+        why:'固定十位：12、13、21、23、31、32，一共 6 个。有序地写才不会漏。' },
+      { lv:2, type:'num', q:'有 3 件上衣、2 条裤子，一共有多少种搭配？', ans:6,
+        traps:[{v:5,d:'用了加法（3+2）'},{v:3,d:'只数了上衣'}],
+        why:'每件上衣都能配 2 条裤子：3×2=6（种）。搭配是乘法，不是加法。' },
+      { lv:3, type:'choice', q:'4 个小朋友，每两人握一次手，一共握几次？', opts:['4 次','6 次','8 次'], a:1,
+        traps:[{v:0,d:'只算了每人一次'},{v:2,d:'算了 4×2'}],
+        why:'把 4 人编号 1-4：12、13、14、23、24、34，一共 6 次。也可以想 4×3÷2=6（每人握 3 次，但每次被算了两遍）。' }
+    ]},
+
+  { term:'二下', name:'表内除法',
+    advice:'除法不要硬算，要用口诀反推：42÷6 就想「几六四十二」→7。先保证口诀熟，再做除法，顺序反了会一直慢。',
+    qs:[
+      { lv:1, type:'num', q:'42 ÷ 6 = ?', ans:7,
+        traps:[{v:6,d:'口诀串了'},{v:8,d:'口诀串了'}],
         why:'想口诀：六七四十二，所以 42÷6=7。' },
-      { lv:2, q:'54 ÷ 6 = ?', opts:['7','8','9','6'], a:2,
+      { lv:2, type:'num', q:'54 ÷ 6 = ?', ans:9,
+        traps:[{v:8,d:'口诀串了'},{v:7,d:'口诀串了'}],
         why:'六九五十四，所以是 9。用口诀反推比一个一个减快得多。' },
-      { lv:3, q:'30 个苹果，每盘放 6 个，可以放几盘？', opts:['4','5','6','24'], a:1,
-        why:'30÷6=5（盘）。求"里面有几个 6"就用除法。' }
-    ]
-  },
-  {
-    name: '有余数的除法',
-    advice: '余数三句话要背熟：①<b>商要试</b>（试到再乘就超过被除数）②<b>余数必须比除数小</b> ③<b>验算</b>：除数×商+余数=被除数。第三句是检查神器。',
-    qs: [
-      { lv:1, q:'17 ÷ 5 = ?', opts:['3 余 2','2 余 7','3 余 1','4 余 1'], a:0,
-        why:'5×3=15，17−15=2，所以 17÷5=3 余 2。注意"2 余 7"是错的——余数 7 比除数 5 大，还能再分一次。' },
-      { lv:2, q:'23 ÷ 4 = ?', opts:['5 余 3','6 余 1','4 余 7','5 余 2'], a:0,
-        why:'4×5=20，23−20=3，所以是 5 余 3。' },
-      { lv:3, q:'□ ÷ 7 = 4 …… 3，□ 里是几？', opts:['25','28','31','11'], a:2,
-        why:'被除数 = 除数 × 商 + 余数 = 7×4+3 = 31。这是有余数除法最爱考的反向题。' }
-    ]
-  },
-  {
-    name: '混合运算顺序',
-    advice: '两句口诀就够：<b>先乘除、后加减；有括号先算括号</b>。练法：让孩子用笔把"先算的部分"圈起来再算，圈对了就不会错。',
-    qs: [
-      { lv:1, q:'5 + 3 × 4 = ?', opts:['32','17','27','12'], a:1,
+      { lv:3, type:'num', q:'30 个苹果，每盘放 6 个，可以放几盘？', ans:5,
+        traps:[{v:6,d:'商多算了一盘'},{v:24,d:'用了减法'}],
+        why:'30÷6=5（盘）。求「里面有几个 6」就用除法。' }
+    ]},
+
+  { term:'二下', name:'有余数的除法',
+    advice:'余数三句话背熟：①商要试（试到再乘就超过被除数）②余数必须比除数小 ③验算：除数×商+余数=被除数。第三句是检查神器。',
+    qs:[
+      { lv:1, type:'num', q:'17 ÷ 5 = 3 余几？', ans:2,
+        traps:[{v:7,d:'余数没有减到比除数小（5×3=15，还剩 2 不是 7）'},{v:1,d:'减法算错'}],
+        why:'5×3=15，17−15=2，所以余 2。记住：余数一定要比除数小，写 7 说明还能再分一次。' },
+      { lv:2, type:'num', q:'23 ÷ 4 = 5 余几？', ans:3,
+        traps:[{v:2,d:'减法算错'},{v:7,d:'余数比除数大'}],
+        why:'4×5=20，23−20=3，所以余 3。' },
+      { lv:3, type:'num', q:'□ ÷ 7 = 4 …… 3，□ 里是几？', ans:31,
+        traps:[{v:28,d:'忘了加余数'},{v:25,d:'用减法'}],
+        why:'被除数 = 除数 × 商 + 余数 = 7×4+3 = 31。这道反向题是二年级最爱考的。' }
+    ]},
+
+  { term:'二下', name:'混合运算',
+    advice:'两句口诀：先乘除、后加减；有括号先算括号。练法：用笔把「先算的部分」圈起来再算，圈对了就不会错。',
+    qs:[
+      { lv:1, type:'num', q:'5 + 3 × 4 = ?', ans:17,
+        traps:[{v:32,d:'从左往右算了'},{v:27,d:'顺序对了但乘法算错'}],
         why:'先乘后加：3×4=12，5+12=17。从左往右算会得到 32，这是最常见的错。' },
-      { lv:2, q:'(12 − 4) × 2 = ?', opts:['16','4','20','8'], a:0,
+      { lv:2, type:'num', q:'(12 − 4) × 2 = ?', ans:16,
+        traps:[{v:4,d:'没算括号，先算了 4×2'},{v:20,d:'括号里算错'}],
         why:'有括号先算括号：12−4=8，8×2=16。' },
-      { lv:3, q:'36 ÷ 6 + 7 = ?', opts:['13','6','12','43'], a:0,
+      { lv:3, type:'num', q:'36 ÷ 6 + 7 = ?', ans:13,
+        traps:[{v:12,d:'先算了加法'},{v:6,d:'只算了除法'}],
         why:'先除后加：36÷6=6，6+7=13。除号在加号前面，也要先算。' }
-    ]
-  },
-  {
-    name: '长度与质量单位',
-    advice: '建立<b>身体参照物</b>，比背换算有用 10 倍：指甲宽≈1 厘米、张开双臂≈1 米、一个苹果≈200 克、一袋盐≈500 克、两袋盐≈1 千克。做题时先想"有多长/多重"，再选单位。',
-    qs: [
-      { lv:1, q:'一支铅笔大约长 18（ ）。', opts:['厘米','米','分米'], a:0,
-        why:'铅笔不到 20 厘米，用厘米。1 米大约是你张开双臂那么长，铅笔远不到。' },
-      { lv:2, q:'1 米 = （ ）厘米', opts:['10','100','1000'], a:1,
-        why:'1 米 = 100 厘米。记错成 10 或 1000 是最常见的单位错误。' },
-      { lv:3, q:'一个苹果大约重 200（ ）。', opts:['克','千克','米'], a:0,
-        why:'200 克差不多一个大苹果的重量。200 千克比大人还重，明显不对；"米"是长度单位，不是重量。' }
-    ]
-  },
-  {
-    name: '认识时间',
-    advice: '每天让孩子<b>看真钟说时间</b> 3 次（早中晚），比做卷子有效。关键两点：分针走 1 大格=5 分钟（数格子×5）；时针在两个数字"之间"时，读<b>小的那个数</b>。',
-    qs: [
-      { lv:1, q:'钟面上，分针走 1 大格是（ ）分钟。', opts:['1','5','12','60'], a:1,
-        why:'钟面一圈 12 大格，每大格 5 小格。分针走 1 大格就是 5 分钟。' },
-      { lv:2, q:'时针在 3 和 4 之间，分针指着 6，现在是（ ）。', opts:['3:06','3:30','4:30','6:15'], a:1,
-        why:'分针指 6 就是 30 分；时针在 3 和 4 之间说明还没到 4 点，读小的数 3，所以是 3:30。' },
-      { lv:3, q:'从 8:20 到 8:50，经过了（ ）分钟。', opts:['20','30','70','40'], a:1,
-        why:'同一小时内直接减：50−20=30（分钟）。' }
-    ]
-  },
-  {
-    name: '应用题',
-    advice: '应用题三步法：①<b>划出已知条件</b>（用笔圈数字和单位）②想"求什么、用什么运算"③<b>写单位、写答</b>。两步题先在草稿上算"中间那个量"，别想一步到位。',
-    qs: [
-      { lv:1, q:'树上有 12 只鸟，飞走 5 只，又飞来 3 只，现在有几只？', opts:['10','14','4','20'], a:0,
-        why:'按顺序一步一步算：12−5=7，7+3=10（只）。' },
-      { lv:2, q:'一本书 8 元，买 3 本，付了 50 元，应找回多少元？', opts:['26','24','34','18'], a:0,
-        why:'先算书钱 8×3=24 元，再算找回 50−24=26 元。两步题必须分两步写。' },
-      { lv:3, q:'25 个同学去划船，每条船最多坐 4 人，至少需要几条船？', opts:['6','7','5','8'], a:1,
-        why:'25÷4=6 余 1，剩下的 1 个人<b>也必须坐船</b>，所以 6+1=7 条。这类"至少"题余数要进一。' }
-    ]
-  }
+    ]},
+
+  { term:'二下', name:'万以内数的认识',
+    advice:'数位顺序要背：千、百、十、个。中间有 0 的数要特别小心（5030 读作五千零三十，不是五千三十）。比大小先比位数，位数相同从最高位比起。',
+    qs:[
+      { lv:1, type:'choice', q:'一个四位数的最高位是（ ）位。', opts:['千位','百位','十位'], a:0,
+        traps:[{v:1,d:'把三位数当成四位数'},{v:2,d:'数位顺序不清'}],
+        why:'四位数从左到右是千位、百位、十位、个位，最高位是千位。' },
+      { lv:2, type:'num', q:'由 5 个千、3 个十组成的数是多少？', ans:5030,
+        traps:[{v:530,d:'漏了一个 0（百位是空位）'},{v:503,d:'少了一个 0'}],
+        why:'5 个千是 5000，3 个十是 30，百位和个位都没有，要写 0：5030。中间空位一定要补 0。' },
+      { lv:3, type:'choice', q:'与 3999 相邻的两个数是（ ）。', opts:['3998 和 4000','3990 和 4000','3998 和 3999'], a:0,
+        traps:[{v:1,d:'减 9 而不是减 1'},{v:2,d:'把 3999 自己也算成相邻数'}],
+        why:'相邻就是比它少 1 和多 1：3999−1=3998，3999+1=4000。注意 3998→4000 中间有进位。' }
+    ]},
+
+  { term:'二下', name:'克与千克',
+    advice:'建立重量参照物：1 枚 1 元硬币≈6克、1 个鸡蛋≈50克、1 袋盐≈500克、2 袋盐≈1千克。做题先想「多重」，再选单位。',
+    qs:[
+      { lv:1, type:'choice', q:'一个鸡蛋大约重 50（ ）。', opts:['克','千克'], a:0,
+        traps:[{v:1,d:'没有重量参照物'}],
+        why:'50 克差不多一个鸡蛋。50 千克比一个大人都重，明显不对。' },
+      { lv:2, type:'num', q:'1 千克合多少克？', ans:1000,
+        traps:[{v:100,d:'和 1 米=100 厘米记混了'},{v:10,d:'记错换算'}],
+        why:'1 千克 = 1000 克。注意「米→厘米是 100」，「千克→克是 1000」，两个不要混。' },
+      { lv:3, type:'choice', q:'1 千克棉花和 1 千克铁，哪个重？', opts:['棉花重','铁重','一样重'], a:2,
+        traps:[{v:1,d:'被「铁很重」的直觉骗了'},{v:0,d:'被「棉花很大」骗了'}],
+        why:'都是 1 千克，重量一样重。区别只在体积：棉花体积大得多。这是二年级最经典的概念陷阱。' }
+    ]},
+
+  { term:'二下', name:'图形的运动',
+    advice:'三个词要分清：对折后两边完全重合 = 轴对称；直着走 = 平移；绕着一个点转 = 旋转。让孩子用手比一次动作，比背定义有用。',
+    qs:[
+      { lv:1, type:'choice', q:'把一张纸对折后两边完全重合，这样的图形叫（ ）。', opts:['轴对称图形','平移图形','旋转图形'], a:0,
+        traps:[{v:1,d:'和「平移」概念混了'},{v:2,d:'和「旋转」概念混了'}],
+        why:'对折后两边完全重合，就是轴对称图形。折痕就是对称轴。' },
+      { lv:2, type:'choice', q:'电梯上下运动属于（ ）。', opts:['平移','旋转','轴对称'], a:0,
+        traps:[{v:1,d:'把直线运动当成转动'},{v:2,d:'把运动当成了图形性质'}],
+        why:'电梯沿着直线上下走，方向不变、形状不变，这是平移。' },
+      { lv:3, type:'choice', q:'下面哪个是旋转现象？', opts:['风扇叶片转动','推拉窗滑动','电梯上升'], a:0,
+        traps:[{v:1,d:'没看出推拉窗是平移'},{v:2,d:'没看出电梯是平移'}],
+        why:'风扇叶片绕着一个中心点转圈，是旋转；推拉窗和电梯都是沿直线走，是平移。' }
+    ]},
+
+  { term:'二下', name:'数据整理与推理',
+    advice:'「正」字记录法：一个「正」= 5 个，数笔画。读统计表先看清横竖各是什么。推理题用「排除法」：把不可能的划掉。',
+    qs:[
+      { lv:1, type:'num', q:'用「正」字记录数据，一个「正」表示几个？', ans:5,
+        traps:[{v:4,d:'数笔画数错了'},{v:10,d:'看成了两倍'}],
+        why:'「正」正好 5 画，所以一个「正」代表 5 个。数起来又快又不乱。' },
+      { lv:2, type:'num', q:'统计表：喜欢苹果 8 人、香蕉 5 人、橘子 6 人。喜欢苹果的比香蕉的多几人？', ans:3,
+        traps:[{v:13,d:'用了加法'},{v:2,d:'拿错了数据'}],
+        why:'「比…多几」用减法：8−5=3（人）。' },
+      { lv:3, type:'choice', q:'小明、小红、小刚三人中，小明不是最高的，小红比小刚高。最高的是谁？', opts:['小明','小红','小刚'], a:1,
+        traps:[{v:2,d:'没有把两个条件合起来用'},{v:0,d:'只用了第一个条件'}],
+        why:'小红比小刚高，所以小刚不可能是最高；小明也不是最高；那只能是小红。两个条件要一起用。' }
+    ]}
 ];
 
 var LV_NAME = { 1: '★ 基础', 2: '★★ 中等', 3: '★★★ 挑战' };
-var G = { idx: 0, stars: 0, answers: [], answered: false, flat: [] };
+var G = { idx: 0, stars: 0, answers: [], answered: false, flat: [], restShown: false, input: '' };
 var LAST = null;
 
-/* ============================================================
-   结果编码：24 题 × 2bit → 8 个字符的短码
-   v1-XXXXXXXX  —— 数据不上传任何服务器，全部编在链接里
-   ============================================================ */
 var ALPH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 
-function encodeCode(answers) {
-  var picks = [];
-  for (var i = 0; i < G.flat.length; i++) {
-    var p = 3;
-    for (var j = 0; j < answers.length; j++) {
-      if (answers[j].idx === i) { p = answers[j].pick; break; }
-    }
-    picks.push(p < 0 || p > 3 ? 3 : p);
-  }
-  var s = '';
-  for (var k = 0; k < picks.length; k += 3) {
-    var v = 0;
-    for (var m = 0; m < 3; m++) {
-      var d = picks[k + m] === undefined ? 3 : picks[k + m];
-      v = v * 4 + d;
-    }
-    s += ALPH[v];
-  }
-  return 'v1-' + s;
-}
-
-function decodeCode(code) {
-  if (!code) return null;
-  var body = String(code).trim();
-  var pref = 'v1-';
-  if (body.slice(0, 3) === pref) body = body.slice(3);
-  if (body.length * 3 < G.flat.length) return null;
-  var picks = [];
-  for (var i = 0; i < body.length; i++) {
-    var v = ALPH.indexOf(body.charAt(i));
-    if (v < 0) return null;
-    picks.push(Math.floor(v / 16) % 4);
-    picks.push(Math.floor(v / 4) % 4);
-    picks.push(v % 4);
-  }
-  return picks.slice(0, G.flat.length);
-}
-
-function showReportFromPicks(picks) {
-  G.answers = [];
-  G.idx = G.flat.length;
-  G.stars = 0;
-  for (var i = 0; i < picks.length; i++) {
-    var ok = (picks[i] === G.flat[i].a);
-    G.answers.push({ idx: i, pick: picks[i], correct: ok, bi: G.flat[i].bi, lv: G.flat[i].lv });
-    if (ok) G.stars++;
-  }
-  document.getElementById('start-screen').classList.add('hidden');
-  showReport();
-}
-
-/* 从链接里恢复报告：把 #r=v1-xxxx 发给别人，对方一打开就直接看到报告 */
-function bootFromHash() {
-  var h = location.hash || '';
-  var m = h.match(/[#&]r=([A-Za-z0-9_-]+)/);
-  if (!m) return;
-  var picks = decodeCode(m[1]);
-  if (picks && picks.length === G.flat.length) showReportFromPicks(picks);
-}
-
-/* 一键发给老师：生成带结果的链接，优先调用系统分享（微信/QQ 直接发） */
-function shareResult() {
-  if (!LAST) return;
-  var code = encodeCode(LAST.answers);
-  var base = location.origin + location.pathname + location.search;
-  var url = base + '#r=' + code;
-  var box = document.getElementById('code-box');
-  var val = document.getElementById('code-val');
-  if (val) val.textContent = code;
-  if (box) box.classList.remove('hidden');
-
-  var btn = document.getElementById('share-btn');
-  function flash(txt) {
-    if (!btn) return;
-    var old = btn.textContent;
-    btn.textContent = txt;
-    setTimeout(function () { btn.textContent = old; }, 2600);
-  }
-
-  var summary = '二年级数学诊断：' + LAST.right + '/' + LAST.total + ' 分（' + LAST.pct + '分）。打开链接直接看报告：';
-
-  if (navigator.share) {
-    navigator.share({ title: '二年级数学诊断报告', text: summary, url: url })
-      .then(function () { flash('✅ 已发出'); })
-      .catch(function () { fallbackCopy(url, function () { flash('✅ 链接已复制'); }); });
-  } else {
-    fallbackCopy(url, function () { flash('✅ 链接已复制'); });
-  }
-}
-
+/* ===== 展平题库 ===== */
 (function buildFlat() {
   for (var bi = 0; bi < BANKS.length; bi++) {
     var b = BANKS[bi];
     for (var qi = 0; qi < b.qs.length; qi++) {
       var q = b.qs[qi];
-      G.flat.push({ bi: bi, qi: qi, lv: q.lv, q: q.q, opts: q.opts, a: q.a, why: q.why, name: b.name });
+      G.flat.push({
+        bi: bi, qi: qi, lv: q.lv, type: q.type, q: q.q,
+        opts: q.opts || null, a: q.a, ans: q.ans, traps: q.traps || [],
+        why: q.why, name: b.name, term: b.term
+      });
     }
   }
 })();
 
+/* ============================================================
+   判题：返回 {ok, code}  code 0=对 1=典型错法A 2=典型错法B 3=其他错
+   ============================================================ */
+function judge(it, val) {
+  var ok;
+  if (it.type === 'choice') ok = (val === it.a);
+  else ok = (Number(val) === Number(it.ans));
+  if (ok) return { ok: true, code: 0 };
+  var code = 3;
+  if (it.traps && it.traps[0] && Number(it.traps[0].v) === Number(val)) code = 1;
+  else if (it.traps && it.traps[1] && Number(it.traps[1].v) === Number(val)) code = 2;
+  return { ok: false, code: code };
+}
+
+/* ============================================================
+   流程
+   ============================================================ */
 function startQuiz() {
   G.idx = 0; G.stars = 0; G.answers = []; G.answered = false;
+  G.restShown = false; G.input = '';
   document.getElementById('start-screen').classList.add('hidden');
   document.getElementById('report-screen').classList.add('hidden');
+  document.getElementById('rest-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.remove('hidden');
   window.scrollTo(0, 0);
   renderQuestion();
@@ -442,46 +563,95 @@ function startQuiz() {
 function backHome() {
   document.getElementById('report-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('rest-screen').classList.add('hidden');
   document.getElementById('start-screen').classList.remove('hidden');
   window.scrollTo(0, 0);
+}
+
+function resumeFromRest() {
+  document.getElementById('rest-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  window.scrollTo(0, 0);
+  renderQuestion();
+}
+
+function renderPad() {
+  var pad = document.getElementById('pad');
+  var keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '←', '0', '确定'];
+  var html = '<div class="pad-display' + (G.input ? '' : ' empty') + '" id="pad-val">' +
+    (G.input ? G.input : '在这里显示你算的答案') + '</div>';
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    var cls = k === '←' ? 'del' : (k === '确定' ? 'ok' : '');
+    html += '<button type="button" class="' + cls + '" onclick="padKey(\'' + k + '\')">' + k + '</button>';
+  }
+  pad.innerHTML = html;
+}
+
+function padKey(k) {
+  if (G.answered) return;
+  var el = document.getElementById('pad-val');
+  if (k === '←') {
+    G.input = G.input.slice(0, -1);
+  } else if (k === '确定') {
+    if (G.input === '') { if (el) { el.textContent = '先输入答案'; el.classList.add('empty'); } return; }
+    submitNum();
+    return;
+  } else {
+    if (G.input.length >= 5) return;
+    G.input += k;
+  }
+  if (el) {
+    el.textContent = G.input ? G.input : '在这里显示你算的答案';
+    if (G.input) el.classList.remove('empty'); else el.classList.add('empty');
+  }
 }
 
 function renderQuestion() {
   var it = G.flat[G.idx];
   G.answered = false;
+  G.input = '';
+
   document.getElementById('qcount').textContent = (G.idx + 1) + ' / ' + G.flat.length;
   document.getElementById('stars').textContent = '⭐ ' + G.stars;
   document.getElementById('bar-fill').style.width = (G.idx / G.flat.length * 100) + '%';
   document.getElementById('lv-badge').textContent = '第 ' + (it.bi + 1) + ' 关 · ' + it.name;
+  document.getElementById('lv-term').textContent = it.term;
   document.getElementById('lv-tag').textContent = LV_NAME[it.lv];
   document.getElementById('question').textContent = it.q;
 
   var box = document.getElementById('opts');
+  var padwrap = document.getElementById('padwrap');
   box.innerHTML = '';
-  for (var oi = 0; oi < it.opts.length; oi++) {
-    (function (oi2) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'opt';
-      btn.innerHTML = '<span class="key">' + 'ABCD'[oi2] + '</span><span>' + it.opts[oi2] + '</span>';
-      btn.onclick = function () { pickOpt(oi2); };
-      box.appendChild(btn);
-    })(oi);
+
+  if (it.type === 'choice') {
+    padwrap.classList.add('hidden');
+    for (var oi = 0; oi < it.opts.length; oi++) {
+      (function (oi2) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'opt';
+        btn.innerHTML = '<span class="key">' + 'ABC'[oi2] + '</span><span>' + it.opts[oi2] + '</span>';
+        btn.onclick = function () { submitChoice(oi2); };
+        box.appendChild(btn);
+      })(oi);
+    }
+  } else {
+    padwrap.classList.remove('hidden');
+    renderPad();
   }
+
   var fb = document.getElementById('feedback');
   fb.classList.add('hidden');
   fb.innerHTML = '';
+  window.scrollTo(0, 0);
 }
 
-function pickOpt(oi) {
+function submitChoice(oi) {
   if (G.answered) return;
-  G.answered = true;
   var it = G.flat[G.idx];
-  var ok = (oi === it.a);
-  G.answers.push({ idx: G.idx, pick: oi, correct: ok, bi: it.bi, lv: it.lv });
-  if (ok) G.stars++;
-  document.getElementById('stars').textContent = '⭐ ' + G.stars;
-
+  var r = judge(it, oi);
+  finishAnswer(it, oi, r);
   var btns = document.querySelectorAll('#opts .opt');
   for (var i = 0; i < btns.length; i++) {
     btns[i].onclick = null;
@@ -489,18 +659,51 @@ function pickOpt(oi) {
     else if (i === oi) btns[i].classList.add('wrong');
     else btns[i].classList.add('dim');
   }
+}
+
+function submitNum() {
+  if (G.answered) return;
+  var it = G.flat[G.idx];
+  var val = Number(G.input);
+  if (isNaN(val)) return;
+  var r = judge(it, val);
+  finishAnswer(it, val, r);
+  var keys = document.querySelectorAll('#pad button');
+  for (var i = 0; i < keys.length; i++) keys[i].disabled = true;
+  var el = document.getElementById('pad-val');
+  if (el) {
+    el.textContent = G.input + (r.ok ? '  ✓' : '  ✗');
+    el.style.color = r.ok ? '#16a34a' : '#ef4444';
+  }
+}
+
+function finishAnswer(it, val, r) {
+  G.answered = true;
+  G.answers.push({ idx: G.idx, pick: val, code: r.code, correct: r.ok, bi: it.bi, lv: it.lv });
+  if (r.ok) G.stars++;
+  document.getElementById('stars').textContent = '⭐ ' + G.stars;
 
   var fb = document.getElementById('feedback');
   fb.classList.remove('hidden');
-  var title = ok ? '✅ 答对了！' : '❌ 正确答案是 ' + 'ABCD'[it.a] + '．' + it.opts[it.a];
+
+  var rightTxt = (it.type === 'choice') ? ('ABC'[it.a] + '．' + it.opts[it.a]) : (it.ans);
+  var title = r.ok ? '✅ 答对了！' : '❌ 正确答案是 ' + rightTxt;
+
+  var diag = '';
+  if (!r.ok) {
+    if (r.code === 1) diag = '🔍 你选的是常见的错法：<b>' + it.traps[0].d + '</b>';
+    else if (r.code === 2) diag = '🔍 你选的是常见的错法：<b>' + it.traps[1].d + '</b>';
+    else diag = '🔍 答案不在常见错法里，我们再看看步骤。';
+  }
+
   var last = (G.idx === G.flat.length - 1);
   fb.innerHTML =
-    '<div class="fb-title ' + (ok ? 'ok' : 'bad') + '">' + title + '</div>' +
+    '<div class="fb-title ' + (r.ok ? 'ok' : 'bad') + '">' + title + '</div>' +
     '<div class="fb-why">' + it.why + '</div>' +
+    (diag ? '<div class="fb-diag">' + diag + '</div>' : '') +
     '<button class="btn primary" type="button" onclick="nextQuestion()">' +
-    (last ? '看看体检报告 📊' : '下一题 →') + '</button>';
+    (last ? '看看诊断报告 📊' : '下一题 →') + '</button>';
 
-  // 手机上确保「下一题」按钮进入视野
   setTimeout(function () {
     try { fb.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { }
   }, 80);
@@ -509,21 +712,97 @@ function pickOpt(oi) {
 function nextQuestion() {
   G.idx++;
   if (G.idx >= G.flat.length) { showReport(); return; }
+  // 中途休息：做完第 21 题（二上部分）后
+  if (G.idx === 21 && !G.restShown) {
+    G.restShown = true;
+    document.getElementById('quiz-screen').classList.add('hidden');
+    document.getElementById('rest-screen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+    return;
+  }
   renderQuestion();
-  window.scrollTo(0, 0);
 }
 
+/* ============================================================
+   结果编码：每题 2bit（0对/1错法A/2错法B/3其他错）
+   42 题 → 每 3 题 6bit → 1 字符 → 14 字符
+   ============================================================ */
+function encodeCode(answers) {
+  var codes = [];
+  for (var i = 0; i < G.flat.length; i++) {
+    var c = 3;
+    for (var j = 0; j < answers.length; j++) {
+      if (answers[j].idx === i) { c = answers[j].code; break; }
+    }
+    codes.push(c < 0 || c > 3 ? 3 : c);
+  }
+  var s = '';
+  for (var k = 0; k < codes.length; k += 3) {
+    var v = 0;
+    for (var m = 0; m < 3; m++) {
+      var d = codes[k + m] === undefined ? 3 : codes[k + m];
+      v = v * 4 + d;
+    }
+    s += ALPH[v];
+  }
+  return 'v2-' + s;
+}
+
+function decodeCode(code) {
+  if (!code) return null;
+  var body = String(code).trim();
+  if (body.slice(0, 3) === 'v2-') body = body.slice(3);
+  else if (body.slice(0, 3) === 'v1-') body = body.slice(3);
+  if (!body) return null;
+  var codes = [];
+  for (var i = 0; i < body.length; i++) {
+    var v = ALPH.indexOf(body.charAt(i));
+    if (v < 0) return null;
+    codes.push(Math.floor(v / 16) % 4, Math.floor(v / 4) % 4, v % 4);
+  }
+  if (codes.length < G.flat.length) return null;
+  return codes.slice(0, G.flat.length);
+}
+
+function showReportFromCodes(codes) {
+  G.answers = [];
+  G.idx = G.flat.length;
+  G.stars = 0;
+  for (var i = 0; i < codes.length; i++) {
+    var ok = (codes[i] === 0);
+    G.answers.push({ idx: i, pick: null, code: codes[i], correct: ok, bi: G.flat[i].bi, lv: G.flat[i].lv });
+    if (ok) G.stars++;
+  }
+  document.getElementById('start-screen').classList.add('hidden');
+  showReport();
+}
+
+function bootFromHash() {
+  var h = location.hash || '';
+  var m = h.match(/[#&]r=([A-Za-z0-9_-]+)/);
+  if (!m) return;
+  var codes = decodeCode(m[1]);
+  if (codes && codes.length === G.flat.length) showReportFromCodes(codes);
+}
+
+/* ============================================================
+   报告
+   ============================================================ */
 function showReport() {
   document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('rest-screen').classList.add('hidden');
   document.getElementById('report-screen').classList.remove('hidden');
   window.scrollTo(0, 0);
 
   var per = [];
-  for (var bi = 0; bi < BANKS.length; bi++) per.push({ name: BANKS[bi].name, advice: BANKS[bi].advice, ok: 0, tot: 0 });
+  for (var bi = 0; bi < BANKS.length; bi++) {
+    per.push({ name: BANKS[bi].name, term: BANKS[bi].term, advice: BANKS[bi].advice, ok: 0, tot: 0 });
+  }
   var lv = { 1: { ok: 0, tot: 0 }, 2: { ok: 0, tot: 0 }, 3: { ok: 0, tot: 0 } };
   var right = 0;
   for (var i = 0; i < G.answers.length; i++) {
     var a = G.answers[i];
+    if (!per[a.bi]) continue;
     per[a.bi].tot++; lv[a.lv].tot++;
     if (a.correct) { per[a.bi].ok++; lv[a.lv].ok++; right++; }
   }
@@ -541,16 +820,26 @@ function showReport() {
   document.getElementById('level-txt').textContent = lvTxt;
   document.getElementById('level-sub').textContent = right + ' / ' + total + ' 题正确';
 
-  var html = '', weak = [], mid = [];
-  for (var k = 0; k < per.length; k++) {
-    var p = per[k];
-    var rate = p.tot ? p.ok / p.tot : 0;
-    var color = rate >= 1 ? '#16a34a' : (rate >= 0.67 ? '#f59e0b' : '#ef4444');
-    if (rate <= 0.34) weak.push(p);
-    else if (rate < 1) mid.push(p);
-    html += '<div class="band"><div class="band-head"><span>' + p.name + '</span><span class="r">' +
-      p.ok + ' / ' + p.tot + '</span></div><div class="track"><i style="width:' +
-      Math.max(2, Math.round(rate * 100)) + '%;background:' + color + '"></i></div></div>';
+  // 按学期分组
+  var html = '';
+  var weak = [], mid = [];
+  var terms = ['二上', '二下'];
+  for (var t = 0; t < terms.length; t++) {
+    var any = false;
+    var inner = '';
+    for (var k = 0; k < per.length; k++) {
+      var p = per[k];
+      if (p.term !== terms[t] || p.tot === 0) continue;
+      any = true;
+      var rate = p.tot ? p.ok / p.tot : 0;
+      var color = rate >= 1 ? '#16a34a' : (rate >= 0.67 ? '#f59e0b' : '#ef4444');
+      if (rate <= 0.34) weak.push(p);
+      else if (rate < 1) mid.push(p);
+      inner += '<div class="band"><div class="band-head"><span>' + p.name + '</span><span class="r">' +
+        p.ok + ' / ' + p.tot + '</span></div><div class="track"><i style="width:' +
+        Math.max(2, Math.round(rate * 100)) + '%;background:' + color + '"></i></div></div>';
+    }
+    if (any) html += '<div class="grp">' + terms[t] + '册</div>' + inner;
   }
   document.getElementById('band-list').innerHTML = html;
 
@@ -558,19 +847,19 @@ function showReport() {
   var hard = lv[3].tot ? lv[3].ok / lv[3].tot : 1;
   var concl;
   if (easy < 0.7) {
-    concl = '🔎 诊断：连 ★ 基础题都错得多 → 不是不会做题，是<b>口算和口诀没熟</b>。先别刷难题，每天 5 分钟口算 + 3 分钟口诀，两周能看到变化。';
+    concl = '🔎 诊断：连 ★ 基础题都错得多 → 不是不会做题，是<b>口算和口诀没熟</b>。先别刷难题，每天 5 分钟口算 + 3 分钟口诀。';
   } else if (hard < 0.5) {
-    concl = '🔎 诊断：基础题没问题，错在 ★★★ 挑战题 → <b>计算能力够，弱在审题和综合</b>（两步应用题、有余数除法的反向题）。重点练"划条件 + 分两步写"。';
+    concl = '🔎 诊断：基础题基本对，错在 ★★★ 挑战题 → <b>计算能力够，弱在审题和综合</b>（两步题、反向题、单位陷阱）。重点练「划条件 + 分两步写」。';
   } else if (pct < 70) {
-    concl = '🔎 诊断：基础还行但不够稳 → 属于<b>会但容易粗心</b>。练"做完回头验算一遍"，尤其是进退位和单位。';
+    concl = '🔎 诊断：基础还行但不够稳 → 属于<b>会但容易粗心</b>。练「做完回头验算一遍」，尤其进退位和单位。';
   } else {
-    concl = '🔎 诊断：计算和综合都不错 → 可以做拔高题保持手感，同时练速度和验算习惯。';
+    concl = '🔎 诊断：全册都不错 → 可以练限时口算和卷面规范（竖式、单位、答），把会做的分稳稳拿住。';
   }
   document.getElementById('conclusion').innerHTML = concl;
 
   var ah = '';
   if (weak.length === 0 && mid.length === 0) {
-    ah = '<div class="advice-item">8 个板块全对，暂时没有要补的。可以练"限时口算"和"多步骤应用题"保持水平。</div>';
+    ah = '<div class="advice-item">14 个单元全对。可以练限时口算、多步骤应用题保持水平。</div>';
   } else {
     for (var w = 0; w < weak.length; w++) {
       ah += '<div class="advice-item">🔴 <b>' + weak[w].name + '</b>（薄弱，优先补）<br>' + weak[w].advice + '</div>';
@@ -581,6 +870,7 @@ function showReport() {
   }
   document.getElementById('advice-list').innerHTML = ah;
 
+  // 错题明细（含错法归因）
   var mh = '', wrongs = [];
   for (var q = 0; q < G.answers.length; q++) if (!G.answers[q].correct) wrongs.push(G.answers[q]);
   if (wrongs.length === 0) {
@@ -588,10 +878,19 @@ function showReport() {
   } else {
     for (var z = 0; z < wrongs.length; z++) {
       var wa = wrongs[z], wit = G.flat[wa.idx];
-      mh += '<li><div class="m-q">第 ' + (wa.idx + 1) + ' 题（' + wit.name + ' · ' + LV_NAME[wit.lv] + '）</div>' +
+      var mine = (wa.pick === null || wa.pick === undefined)
+        ? (wa.code === 0 ? '—' : (wa.code === 1 ? '（填了常见错法1）' : (wa.code === 2 ? '（填了常见错法2）' : '（其他错误）')))
+        : wa.pick;
+      var rightShow = (wit.type === 'choice') ? wit.opts[wit.a] : wit.ans;
+      var diagTxt = '';
+      if (wa.code === 1 && wit.traps[0]) diagTxt = '错因：' + wit.traps[0].d;
+      else if (wa.code === 2 && wit.traps[1]) diagTxt = '错因：' + wit.traps[1].d;
+      else diagTxt = '错因：不在常见错法里，需要面谈看步骤';
+      mh += '<li>' +
+        '<div class="m-q">第 ' + (wa.idx + 1) + ' 题（' + wit.name + ' · ' + LV_NAME[wit.lv] + '）</div>' +
         '<div class="m-q">' + wit.q + '</div>' +
-        '<div class="m-a">孩子选：<b>' + wit.opts[wa.pick] + '</b> ｜ 正确：<b class="good">' + wit.opts[wit.a] + '</b></div>' +
-        '<div class="m-w">' + wit.why + '</div></li>';
+        '<div class="m-a">作答：<b>' + mine + '</b> ｜ 正确：<b class="good">' + rightShow + '</b></div>' +
+        '<div class="m-w">' + diagTxt + '　｜　' + wit.why + '</div></li>';
     }
   }
   document.getElementById('mist-list').innerHTML = mh;
@@ -599,7 +898,7 @@ function showReport() {
   LAST = { per: per, lv: lv, right: right, total: total, pct: pct, answers: G.answers.slice(), flat: G.flat };
 }
 
-/* ===== 一键复制结果，方便回传给老师 / 复测对比 ===== */
+/* ===== 一键分享 / 复制 ===== */
 function fallbackCopy(text, cb) {
   var ta = document.createElement('textarea');
   ta.value = text;
@@ -614,34 +913,64 @@ function fallbackCopy(text, cb) {
   if (cb) cb();
 }
 
+function shareResult() {
+  if (!LAST) return;
+  var code = encodeCode(LAST.answers);
+  var base = location.origin + location.pathname + location.search;
+  var url = base + '#r=' + code;
+  var box = document.getElementById('code-box');
+  var val = document.getElementById('code-val');
+  if (val) val.textContent = code;
+  if (box) box.classList.remove('hidden');
+
+  var btn = document.getElementById('share-btn');
+  function flash(txt) {
+    if (!btn) return;
+    var old = btn.textContent;
+    btn.textContent = txt;
+    setTimeout(function () { btn.textContent = old; }, 2600);
+  }
+  var summary = '二年级数学全册诊断：' + LAST.right + '/' + LAST.total + ' 分（' + LAST.pct + '分）。打开链接直接看报告：';
+
+  if (navigator.share) {
+    navigator.share({ title: '二年级数学全册诊断报告', text: summary, url: url })
+      .then(function () { flash('✅ 已发出'); })
+      .catch(function () { fallbackCopy(url, function () { flash('✅ 链接已复制'); }); });
+  } else {
+    fallbackCopy(url, function () { flash('✅ 链接已复制'); });
+  }
+}
+
 function copyResult() {
-  if (!LAST) { return; }
+  if (!LAST) return;
   var lines = [];
-  lines.push('二年级数学诊断结果');
+  lines.push('二年级数学全册诊断结果');
   lines.push('总分：' + LAST.right + '/' + LAST.total + '（' + LAST.pct + '分）');
   lines.push('');
-  lines.push('【板块】');
   for (var i = 0; i < LAST.per.length; i++) {
     var p = LAST.per[i];
-    var rate = p.tot ? p.ok / p.tot : 0;
+    if (!p.tot) continue;
+    var rate = p.ok / p.tot;
     var mark = rate >= 1 ? '🟢' : (rate >= 0.67 ? '🟡' : '🔴');
-    lines.push(mark + ' ' + p.name + '：' + p.ok + '/' + p.tot);
+    lines.push(mark + ' ' + p.term + '·' + p.name + '：' + p.ok + '/' + p.tot);
   }
   lines.push('');
-  lines.push('【难度】★基础 ' + LAST.lv[1].ok + '/' + LAST.lv[1].tot +
-    '  ★★中等 ' + LAST.lv[2].ok + '/' + LAST.lv[2].tot +
-    '  ★★★挑战 ' + LAST.lv[3].ok + '/' + LAST.lv[3].tot);
+  lines.push('【难度】★ ' + LAST.lv[1].ok + '/' + LAST.lv[1].tot +
+    '  ★★ ' + LAST.lv[2].ok + '/' + LAST.lv[2].tot +
+    '  ★★★ ' + LAST.lv[3].ok + '/' + LAST.lv[3].tot);
   lines.push('');
-  var wrongs = [];
+  var any = false;
   for (var j = 0; j < LAST.answers.length; j++) {
     var a = LAST.answers[j];
     if (a.correct) continue;
+    any = true;
     var it = LAST.flat[a.idx];
-    wrongs.push('第' + (a.idx + 1) + '题（' + it.name + '·' + LV_NAME[it.lv] + '）：选了「' +
-      it.opts[a.pick] + '」，正确「' + it.opts[it.a] + '」');
+    var diagTxt = (a.code === 1 && it.traps[0]) ? it.traps[0].d : ((a.code === 2 && it.traps[1]) ? it.traps[1].d : '其他错误');
+    lines.push('第' + (a.idx + 1) + '题（' + it.name + '·' + LV_NAME[it.lv] + '）：' + it.q + ' → 错因：' + diagTxt);
   }
-  lines.push('【错题】' + (wrongs.length ? '' : '无'));
-  for (var k = 0; k < wrongs.length; k++) lines.push(wrongs[k]);
+  if (!any) lines.push('【错题】无');
+  lines.push('');
+  lines.push('结果码：' + encodeCode(LAST.answers));
 
   var text = lines.join('\n');
   var btn = document.getElementById('copy-btn');
@@ -661,7 +990,10 @@ function copyResult() {
 window.startQuiz = startQuiz;
 window.backHome = backHome;
 window.nextQuestion = nextQuestion;
-window.pickOpt = pickOpt;
+window.submitChoice = submitChoice;
+window.submitNum = submitNum;
+window.padKey = padKey;
+window.resumeFromRest = resumeFromRest;
 window.copyResult = copyResult;
 window.shareResult = shareResult;
 
