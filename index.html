@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>二年级数学体检站 · 8关24题</title>
+<meta name="theme-color" content="#4f46e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<style>
+  :root{
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+    --brand:#4f46e5; --brand-soft:#eef2ff;
+    --ok:#16a34a; --ok-soft:#ecfdf5;
+    --warn:#f59e0b; --warn-soft:#fffbeb;
+    --bad:#ef4444; --bad-soft:#fef2f2;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{overscroll-behavior-y:contain}
+  body{
+    font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:linear-gradient(165deg,#eef6ff 0%,#f7f0ff 52%,#fff5f5 100%);
+    min-height:100vh;padding:16px 14px 32px;line-height:1.55;
+  }
+  .app{max-width:720px;margin:0 auto}
+  .hidden{display:none !important}
+  .card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 12px 34px rgba(79,70,229,.10),0 2px 6px rgba(0,0,0,.04)}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:.3px}
+  h2{font-size:19px;margin:0 0 12px}
+  .hero{
+    text-align:center;padding:26px 20px 22px;
+    background:linear-gradient(150deg,#4f46e5,#7c3aed 60%,#db2777);
+    border-radius:22px;color:#fff;margin-bottom:14px;
+    box-shadow:0 14px 34px rgba(124,58,237,.28);
+  }
+  .hero .emoji{font-size:40px;line-height:1}
+  .hero h1{font-size:24px;margin:8px 0 4px;color:#fff}
+  .hero p{margin:0;font-size:13.5px;opacity:.92}
+  .rules{list-style:none;padding:0;margin:0 0 16px}
+  .rules li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-bottom:8px;background:#f8fafc;border-radius:12px;font-size:15px}
+  .rules .b{flex:0 0 auto}
+  .tip{font-size:13.5px;color:#92400e;background:var(--warn-soft);border:1px solid #fde68a;border-radius:12px;padding:11px 13px;margin-bottom:16px}
+  .btn{display:block;width:100%;min-height:56px;padding:15px 18px;border:none;border-radius:14px;font-size:19px;font-weight:800;font-family:inherit;cursor:pointer;transition:transform .08s,box-shadow .15s}
+  .btn:active{transform:scale(.985)}
+  .btn.primary{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;box-shadow:0 10px 22px rgba(79,70,229,.30)}
+  .btn.ghost{background:#fff;color:var(--brand);border:2px solid #c7d2fe;margin-top:10px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .qcount{font-size:14px;font-weight:700;color:var(--muted)}
+  .stars{font-size:15px;font-weight:800;color:#b45309;white-space:nowrap}
+  .bar{height:10px;background:#eef2ff;border-radius:99px;overflow:hidden;margin-bottom:18px}
+  .bar-in{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#6366f1,#a855f7);transition:width .35s ease}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .badge{font-size:13px;font-weight:800;padding:6px 11px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+  .badge.tag{background:#fff7ed;color:#b45309}
+  .question{font-size:27px;font-weight:800;line-height:1.35;margin:2px 0 18px;letter-spacing:.4px;word-break:break-word}
+  .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:14px 16px;margin:0 0 10px;border:2px solid var(--line);border-radius:15px;background:#fff;font-size:20px;font-weight:700;color:var(--ink);font-family:inherit;text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#c7d2fe;background:#f8faff}
+  .opt .key{flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:14px;font-weight:800}
+  .opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+  .opt.correct .key{background:var(--ok);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+  .opt.wrong .key{background:var(--bad);color:#fff}
+  .opt.dim{opacity:.45}
+  .feedback{margin-top:6px;padding:14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line)}
+  .fb-title{font-size:17px;font-weight:800;margin-bottom:6px}
+  .fb-title.ok{color:var(--ok)}
+  .fb-title.bad{color:var(--bad)}
+  .fb-why{font-size:15px;color:#374151;margin-bottom:14px}
+  .score-wrap{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+  .score-ring{flex:0 0 96px;width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#7c3aed var(--deg,0deg),#eef2ff 0deg)}
+  .score-inner{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
+  .score-num{font-size:23px;font-weight:900;line-height:1}
+  .score-lab{font-size:11px;color:var(--muted)}
+  .score-txt b{font-size:19px}
+  .score-txt div{font-size:14px;color:var(--muted)}
+  .band{margin-bottom:11px}
+  .band-head{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:5px}
+  .band-head .r{color:var(--muted);font-weight:600}
+  .track{height:9px;background:#f1f5f9;border-radius:99px;overflow:hidden}
+  .track i{display:block;height:100%;border-radius:99px}
+  .advice-block{margin-top:18px;padding:14px;border-radius:14px;background:#faf5ff;border:1px solid #e9d5ff}
+  .advice-block h3{font-size:15px;margin:0 0 8px;color:#6d28d9}
+  .advice-item{font-size:14.5px;margin-bottom:10px;padding-left:2px}
+  .advice-item b{color:#6d28d9}
+  .conclusion{margin-top:14px;padding:13px 14px;border-radius:13px;font-size:15px;font-weight:600;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+  details{margin-top:16px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  summary{padding:13px 15px;font-size:15px;font-weight:800;background:#f8fafc;cursor:pointer;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary:before{content:"\25B8  ";color:var(--brand)}
+  details[open] summary:before{content:"\25BE  "}
+  .mist-list{list-style:none;margin:0;padding:12px 14px 4px}
+  .mist-list li{padding:10px 0;border-bottom:1px dashed #e5e7eb}
+  .mist-list li:last-child{border-bottom:none}
+  .m-q{font-size:15px;font-weight:700;margin-bottom:3px}
+  .m-a{font-size:14px;color:#4b5563;margin-bottom:3px}
+  .m-a b{color:#b91c1c}
+  .m-a b.good{color:var(--ok)}
+  .m-w{font-size:13.5px;color:var(--muted)}
+  /* ===== 手机适配 ===== */
+  @media (max-width: 430px){
+    body{padding:12px 11px calc(28px + env(safe-area-inset-bottom))}
+    .card{padding:16px;border-radius:16px}
+    .hero{padding:22px 16px 20px;border-radius:18px}
+    .hero h1{font-size:22px}
+    h1{font-size:22px}
+    .question{font-size:23px;margin:2px 0 14px}
+    .opt{font-size:18.5px;min-height:54px;padding:12px 14px;margin-bottom:9px}
+    .fb-title{font-size:16px}
+    .fb-why{font-size:14.5px}
+    .rules li{font-size:14.5px;padding:9px 11px}
+  }
+  @media (max-width: 350px){
+    .question{font-size:20px}
+    .opt{font-size:17px;gap:9px}
+    .opt .key{flex:0 0 26px;width:26px;height:26px;font-size:13px}
+  }
+  /* 打印：给家长一份纸质版备用 */
+  @media print{
+    body{background:#fff;padding:0}
+    .hero{background:#fff;color:#000;box-shadow:none;border:2px solid #000}
+    .hero h1{color:#000}
+    .btn,.feedback{display:none !important}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <section id="start-screen">
+    <div class="hero">
+      <div class="emoji">🧮</div>
+      <h1>二年级数学体检站</h1>
+      <p>8 个关卡 · 24 道题 · 大约 15 分钟</p>
+    </div>
+    <div class="card">
+      <ul class="rules">
+        <li><span class="b">1️⃣</span><span>一题一题做，每题只有一个正确答案，做完马上知道对错。</span></li>
+        <li><span class="b">2️⃣</span><span>每关 3 道题：<b>基础 → 中等 → 挑战</b>，越来越难，很正常。</span></li>
+        <li><span class="b">3️⃣</span><span>不会的题可以猜一个，<b>不要空着</b>——猜错也能帮我们找到问题。</span></li>
+        <li><span class="b">4️⃣</span><span>做完自动出「体检报告」：哪块扎实、哪块要补，一目了然。</span></li>
+      </ul>
+      <div class="tip">
+        👨‍👩‍👧 <b>给家长：</b>请让孩子独立完成，不要提示答案、不要说「再想想」。要看他真实的水平，错的题越真实越有用。做完把报告里的<b>红色/黄色板块</b>告诉我。
+      </div>
+      <button id="start-btn" class="btn primary" type="button" onclick="startQuiz()">开始体检 🚀</button>
+    </div>
+  </section>
+
+  <section id="quiz-screen" class="hidden">
+    <div class="topbar">
+      <div class="qcount" id="qcount">1 / 24</div>
+      <div class="stars" id="stars">⭐ 0</div>
+    </div>
+    <div class="bar"><div class="bar-in" id="bar-fill"></div></div>
+    <div class="card">
+      <div class="badges">
+        <span class="badge" id="lv-badge">第 1 关</span>
+        <span class="badge tag" id="lv-tag">★ 基础</span>
+      </div>
+      <div class="question" id="question">题目</div>
+      <div id="opts"></div>
+      <div id="feedback" class="feedback hidden"></div>
+    </div>
+  </section>
+
+  <section id="report-screen" class="hidden">
+    <div class="card">
+      <h2>📋 数学体检报告</h2>
+      <div class="score-wrap">
+        <div class="score-ring" id="score-ring">
+          <div class="score-inner">
+            <div>
+              <div class="score-num" id="score-num">0</div>
+              <div class="score-lab">分</div>
+            </div>
+          </div>
+        </div>
+        <div class="score-txt">
+          <b id="level-txt">—</b>
+          <div id="level-sub">—</div>
+        </div>
+      </div>
+
+      <h2 style="margin-top:18px;font-size:16px">各板块掌握情况</h2>
+      <div id="band-list"></div>
+
+      <div class="conclusion" id="conclusion">—</div>
+
+      <div class="advice-block">
+        <h3>🎯 针对这些问题的练法</h3>
+        <div id="advice-list"></div>
+      </div>
+
+      <details id="mist-details">
+        <summary>看看错题（家长可以照着念给我）</summary>
+        <ul class="mist-list" id="mist-list"></ul>
+      </details>
+
+      <button class="btn primary" style="margin-top:18px" type="button" onclick="startQuiz()">再测一次 🔄</button>
+      <button class="btn ghost" type="button" onclick="backHome()">回到首页</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+var BANKS = [
+  {
+    name: '100以内加减法',
+    advice: '每天 5 分钟口算专项，先 20 以内进退位、再 100 以内。要求<b>边算边小声说算理</b>（"个位 5+7=12，写 2 进 1"），不要只报答案——说得出才说明真懂。',
+    qs: [
+      { lv:1, q:'45 + 27 = ?', opts:['62','72','71','82'], a:1,
+        why:'个位 5+7=12，写 2、向十位进 1；十位 4+2+1=7，所以是 72。出错最多的是忘记进位（选 62）。' },
+      { lv:2, q:'63 − 28 = ?', opts:['45','35','36','41'], a:1,
+        why:'个位 3 不够减 8，向十位借 1：13−8=5；十位剩 5−2=3，所以是 35。忘记退位就会得到 45。' },
+      { lv:3, q:'100 − 46 = ?', opts:['54','64','44','56'], a:0,
+        why:'连续退位：个位 0 不够减，借来 10，10−6=4；十位剩 9，9−4=5，所以是 54。' }
+    ]
+  },
+  {
+    name: '表内乘法',
+    advice: '乘法口诀要背到<b>条件反射</b>，不是慢慢推。三步：①按顺序背 ②随机抽背（家长说"七六"，孩子秒答）③倒着问（"42 是几乘几"）。每天 3 分钟，比做 100 道题有用。',
+    qs: [
+      { lv:1, q:'6 × 7 = ?', opts:['36','42','48','49'], a:1,
+        why:'六七四十二。容易混的是 6×6=36、6×8=48、7×7=49。' },
+      { lv:2, q:'8 × 9 = ?', opts:['63','72','81','64'], a:1,
+        why:'八九七十二。常见错误是把 8×9 记成 8×8=64 或 9×9=81。' },
+      { lv:3, q:'一盒彩笔有 5 支，买 7 盒，一共有多少支？', opts:['12','30','35','40'], a:2,
+        why:'求"几个几"用乘法：5×7=35（支）。看到"每盒…共几盒"就是乘法信号。' }
+    ]
+  },
+  {
+    name: '表内除法',
+    advice: '除法不要硬算，要<b>用口诀反推</b>：42÷6 就想"几六四十二"→7。先保证口诀熟，再做除法，顺序反了会一直慢。',
+    qs: [
+      { lv:1, q:'42 ÷ 6 = ?', opts:['6','7','8','9'], a:1,
+        why:'想口诀：六七四十二，所以 42÷6=7。' },
+      { lv:2, q:'54 ÷ 6 = ?', opts:['7','8','9','6'], a:2,
+        why:'六九五十四，所以是 9。用口诀反推比一个一个减快得多。' },
+      { lv:3, q:'30 个苹果，每盘放 6 个，可以放几盘？', opts:['4','5','6','24'], a:1,
+        why:'30÷6=5（盘）。求"里面有几个 6"就用除法。' }
+    ]
+  },
+  {
+    name: '有余数的除法',
+    advice: '余数三句话要背熟：①<b>商要试</b>（试到再乘就超过被除数）②<b>余数必须比除数小</b> ③<b>验算</b>：除数×商+余数=被除数。第三句是检查神器。',
+    qs: [
+      { lv:1, q:'17 ÷ 5 = ?', opts:['3 余 2','2 余 7','3 余 1','4 余 1'], a:0,
+        why:'5×3=15，17−15=2，所以 17÷5=3 余 2。注意"2 余 7"是错的——余数 7 比除数 5 大，还能再分一次。' },
+      { lv:2, q:'23 ÷ 4 = ?', opts:['5 余 3','6 余 1','4 余 7','5 余 2'], a:0,
+        why:'4×5=20，23−20=3，所以是 5 余 3。' },
+      { lv:3, q:'□ ÷ 7 = 4 …… 3，□ 里是几？', opts:['25','28','31','11'], a:2,
+        why:'被除数 = 除数 × 商 + 余数 = 7×4+3 = 31。这是有余数除法最爱考的反向题。' }
+    ]
+  },
+  {
+    name: '混合运算顺序',
+    advice: '两句口诀就够：<b>先乘除、后加减；有括号先算括号</b>。练法：让孩子用笔把"先算的部分"圈起来再算，圈对了就不会错。',
+    qs: [
+      { lv:1, q:'5 + 3 × 4 = ?', opts:['32','17','27','12'], a:1,
+        why:'先乘后加：3×4=12，5+12=17。从左往右算会得到 32，这是最常见的错。' },
+      { lv:2, q:'(12 − 4) × 2 = ?', opts:['16','4','20','8'], a:0,
+        why:'有括号先算括号：12−4=8，8×2=16。' },
+      { lv:3, q:'36 ÷ 6 + 7 = ?', opts:['13','6','12','43'], a:0,
+        why:'先除后加：36÷6=6，6+7=13。除号在加号前面，也要先算。' }
+    ]
+  },
+  {
+    name: '长度与质量单位',
+    advice: '建立<b>身体参照物</b>，比背换算有用 10 倍：指甲宽≈1 厘米、张开双臂≈1 米、一个苹果≈200 克、一袋盐≈500 克、两袋盐≈1 千克。做题时先想"有多长/多重"，再选单位。',
+    qs: [
+      { lv:1, q:'一支铅笔大约长 18（ ）。', opts:['厘米','米','分米'], a:0,
+        why:'铅笔不到 20 厘米，用厘米。1 米大约是你张开双臂那么长，铅笔远不到。' },
+      { lv:2, q:'1 米 = （ ）厘米', opts:['10','100','1000'], a:1,
+        why:'1 米 = 100 厘米。记错成 10 或 1000 是最常见的单位错误。' },
+      { lv:3, q:'一个苹果大约重 200（ ）。', opts:['克','千克','米'], a:0,
+        why:'200 克差不多一个大苹果的重量。200 千克比大人还重，明显不对；"米"是长度单位，不是重量。' }
+    ]
+  },
+  {
+    name: '认识时间',
+    advice: '每天让孩子<b>看真钟说时间</b> 3 次（早中晚），比做卷子有效。关键两点：分针走 1 大格=5 分钟（数格子×5）；时针在两个数字"之间"时，读<b>小的那个数</b>。',
+    qs: [
+      { lv:1, q:'钟面上，分针走 1 大格是（ ）分钟。', opts:['1','5','12','60'], a:1,
+        why:'钟面一圈 12 大格，每大格 5 小格。分针走 1 大格就是 5 分钟。' },
+      { lv:2, q:'时针在 3 和 4 之间，分针指着 6，现在是（ ）。', opts:['3:06','3:30','4:30','6:15'], a:1,
+        why:'分针指 6 就是 30 分；时针在 3 和 4 之间说明还没到 4 点，读小的数 3，所以是 3:30。' },
+      { lv:3, q:'从 8:20 到 8:50，经过了（ ）分钟。', opts:['20','30','70','40'], a:1,
+        why:'同一小时内直接减：50−20=30（分钟）。' }
+    ]
+  },
+  {
+    name: '应用题',
+    advice: '应用题三步法：①<b>划出已知条件</b>（用笔圈数字和单位）②想"求什么、用什么运算"③<b>写单位、写答</b>。两步题先在草稿上算"中间那个量"，别想一步到位。',
+    qs: [
+      { lv:1, q:'树上有 12 只鸟，飞走 5 只，又飞来 3 只，现在有几只？', opts:['10','14','4','20'], a:0,
+        why:'按顺序一步一步算：12−5=7，7+3=10（只）。' },
+      { lv:2, q:'一本书 8 元，买 3 本，付了 50 元，应找回多少元？', opts:['26','24','34','18'], a:0,
+        why:'先算书钱 8×3=24 元，再算找回 50−24=26 元。两步题必须分两步写。' },
+      { lv:3, q:'25 个同学去划船，每条船最多坐 4 人，至少需要几条船？', opts:['6','7','5','8'], a:1,
+        why:'25÷4=6 余 1，剩下的 1 个人<b>也必须坐船</b>，所以 6+1=7 条。这类"至少"题余数要进一。' }
+    ]
+  }
+];
+
+var LV_NAME = { 1: '★ 基础', 2: '★★ 中等', 3: '★★★ 挑战' };
+var G = { idx: 0, stars: 0, answers: [], answered: false, flat: [] };
+
+(function buildFlat() {
+  for (var bi = 0; bi < BANKS.length; bi++) {
+    var b = BANKS[bi];
+    for (var qi = 0; qi < b.qs.length; qi++) {
+      var q = b.qs[qi];
+      G.flat.push({ bi: bi, qi: qi, lv: q.lv, q: q.q, opts: q.opts, a: q.a, why: q.why, name: b.name });
+    }
+  }
+})();
+
+function startQuiz() {
+  G.idx = 0; G.stars = 0; G.answers = []; G.answered = false;
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('report-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  window.scrollTo(0, 0);
+  renderQuestion();
+}
+
+function backHome() {
+  document.getElementById('report-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('start-screen').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function renderQuestion() {
+  var it = G.flat[G.idx];
+  G.answered = false;
+  document.getElementById('qcount').textContent = (G.idx + 1) + ' / ' + G.flat.length;
+  document.getElementById('stars').textContent = '⭐ ' + G.stars;
+  document.getElementById('bar-fill').style.width = (G.idx / G.flat.length * 100) + '%';
+  document.getElementById('lv-badge').textContent = '第 ' + (it.bi + 1) + ' 关 · ' + it.name;
+  document.getElementById('lv-tag').textContent = LV_NAME[it.lv];
+  document.getElementById('question').textContent = it.q;
+
+  var box = document.getElementById('opts');
+  box.innerHTML = '';
+  for (var oi = 0; oi < it.opts.length; oi++) {
+    (function (oi2) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'opt';
+      btn.innerHTML = '<span class="key">' + 'ABCD'[oi2] + '</span><span>' + it.opts[oi2] + '</span>';
+      btn.onclick = function () { pickOpt(oi2); };
+      box.appendChild(btn);
+    })(oi);
+  }
+  var fb = document.getElementById('feedback');
+  fb.classList.add('hidden');
+  fb.innerHTML = '';
+}
+
+function pickOpt(oi) {
+  if (G.answered) return;
+  G.answered = true;
+  var it = G.flat[G.idx];
+  var ok = (oi === it.a);
+  G.answers.push({ idx: G.idx, pick: oi, correct: ok, bi: it.bi, lv: it.lv });
+  if (ok) G.stars++;
+  document.getElementById('stars').textContent = '⭐ ' + G.stars;
+
+  var btns = document.querySelectorAll('#opts .opt');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].onclick = null;
+    if (i === it.a) btns[i].classList.add('correct');
+    else if (i === oi) btns[i].classList.add('wrong');
+    else btns[i].classList.add('dim');
+  }
+
+  var fb = document.getElementById('feedback');
+  fb.classList.remove('hidden');
+  var title = ok ? '✅ 答对了！' : '❌ 正确答案是 ' + 'ABCD'[it.a] + '．' + it.opts[it.a];
+  var last = (G.idx === G.flat.length - 1);
+  fb.innerHTML =
+    '<div class="fb-title ' + (ok ? 'ok' : 'bad') + '">' + title + '</div>' +
+    '<div class="fb-why">' + it.why + '</div>' +
+    '<button class="btn primary" type="button" onclick="nextQuestion()">' +
+    (last ? '看看体检报告 📊' : '下一题 →') + '</button>';
+
+  // 手机上确保「下一题」按钮进入视野
+  setTimeout(function () {
+    try { fb.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { }
+  }, 80);
+}
+
+function nextQuestion() {
+  G.idx++;
+  if (G.idx >= G.flat.length) { showReport(); return; }
+  renderQuestion();
+  window.scrollTo(0, 0);
+}
+
+function showReport() {
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('report-screen').classList.remove('hidden');
+  window.scrollTo(0, 0);
+
+  var per = [];
+  for (var bi = 0; bi < BANKS.length; bi++) per.push({ name: BANKS[bi].name, advice: BANKS[bi].advice, ok: 0, tot: 0 });
+  var lv = { 1: { ok: 0, tot: 0 }, 2: { ok: 0, tot: 0 }, 3: { ok: 0, tot: 0 } };
+  var right = 0;
+  for (var i = 0; i < G.answers.length; i++) {
+    var a = G.answers[i];
+    per[a.bi].tot++; lv[a.lv].tot++;
+    if (a.correct) { per[a.bi].ok++; lv[a.lv].ok++; right++; }
+  }
+  var total = G.answers.length || 1;
+  var pct = Math.round(right / total * 100);
+
+  document.getElementById('score-num').textContent = pct;
+  document.getElementById('score-ring').style.setProperty('--deg', (pct * 3.6) + 'deg');
+
+  var lvTxt;
+  if (pct >= 88) lvTxt = '很扎实 🌟';
+  else if (pct >= 70) lvTxt = '基础不错 👍';
+  else if (pct >= 50) lvTxt = '需要巩固 💪';
+  else lvTxt = '基础要补 🌱';
+  document.getElementById('level-txt').textContent = lvTxt;
+  document.getElementById('level-sub').textContent = right + ' / ' + total + ' 题正确';
+
+  var html = '', weak = [], mid = [];
+  for (var k = 0; k < per.length; k++) {
+    var p = per[k];
+    var rate = p.tot ? p.ok / p.tot : 0;
+    var color = rate >= 1 ? '#16a34a' : (rate >= 0.67 ? '#f59e0b' : '#ef4444');
+    if (rate <= 0.34) weak.push(p);
+    else if (rate < 1) mid.push(p);
+    html += '<div class="band"><div class="band-head"><span>' + p.name + '</span><span class="r">' +
+      p.ok + ' / ' + p.tot + '</span></div><div class="track"><i style="width:' +
+      Math.max(2, Math.round(rate * 100)) + '%;background:' + color + '"></i></div></div>';
+  }
+  document.getElementById('band-list').innerHTML = html;
+
+  var easy = lv[1].tot ? lv[1].ok / lv[1].tot : 1;
+  var hard = lv[3].tot ? lv[3].ok / lv[3].tot : 1;
+  var concl;
+  if (easy < 0.7) {
+    concl = '🔎 诊断：连 ★ 基础题都错得多 → 不是不会做题，是<b>口算和口诀没熟</b>。先别刷难题，每天 5 分钟口算 + 3 分钟口诀，两周能看到变化。';
+  } else if (hard < 0.5) {
+    concl = '🔎 诊断：基础题没问题，错在 ★★★ 挑战题 → <b>计算能力够，弱在审题和综合</b>（两步应用题、有余数除法的反向题）。重点练"划条件 + 分两步写"。';
+  } else if (pct < 70) {
+    concl = '🔎 诊断：基础还行但不够稳 → 属于<b>会但容易粗心</b>。练"做完回头验算一遍"，尤其是进退位和单位。';
+  } else {
+    concl = '🔎 诊断：计算和综合都不错 → 可以做拔高题保持手感，同时练速度和验算习惯。';
+  }
+  document.getElementById('conclusion').innerHTML = concl;
+
+  var ah = '';
+  if (weak.length === 0 && mid.length === 0) {
+    ah = '<div class="advice-item">8 个板块全对，暂时没有要补的。可以练"限时口算"和"多步骤应用题"保持水平。</div>';
+  } else {
+    for (var w = 0; w < weak.length; w++) {
+      ah += '<div class="advice-item">🔴 <b>' + weak[w].name + '</b>（薄弱，优先补）<br>' + weak[w].advice + '</div>';
+    }
+    for (var m = 0; m < mid.length; m++) {
+      ah += '<div class="advice-item">🟡 <b>' + mid[m].name + '</b>（差一点，顺手巩固）<br>' + mid[m].advice + '</div>';
+    }
+  }
+  document.getElementById('advice-list').innerHTML = ah;
+
+  var mh = '', wrongs = [];
+  for (var q = 0; q < G.answers.length; q++) if (!G.answers[q].correct) wrongs.push(G.answers[q]);
+  if (wrongs.length === 0) {
+    mh = '<li><div class="m-q">🎉 全对，没有错题！</div></li>';
+  } else {
+    for (var z = 0; z < wrongs.length; z++) {
+      var wa = wrongs[z], wit = G.flat[wa.idx];
+      mh += '<li><div class="m-q">第 ' + (wa.idx + 1) + ' 题（' + wit.name + ' · ' + LV_NAME[wit.lv] + '）</div>' +
+        '<div class="m-q">' + wit.q + '</div>' +
+        '<div class="m-a">孩子选：<b>' + wit.opts[wa.pick] + '</b> ｜ 正确：<b class="good">' + wit.opts[wit.a] + '</b></div>' +
+        '<div class="m-w">' + wit.why + '</div></li>';
+    }
+  }
+  document.getElementById('mist-list').innerHTML = mh;
+}
+
+window.startQuiz = startQuiz;
+window.backHome = backHome;
+window.nextQuestion = nextQuestion;
+window.pickOpt = pickOpt;
+</script>
+</body>
+</html>
