@@ -200,7 +200,8 @@
         <ul class="mist-list" id="mist-list"></ul>
       </details>
 
-      <button class="btn primary" style="margin-top:18px" type="button" onclick="startQuiz()">再测一次 🔄</button>
+      <button id="copy-btn" class="btn ghost" style="margin-top:18px" type="button" onclick="copyResult()">📋 复制结果（发给老师）</button>
+      <button class="btn primary" style="margin-top:10px" type="button" onclick="startQuiz()">再测一次 🔄</button>
       <button class="btn ghost" type="button" onclick="backHome()">回到首页</button>
     </div>
   </section>
@@ -309,6 +310,7 @@ var BANKS = [
 
 var LV_NAME = { 1: '★ 基础', 2: '★★ 中等', 3: '★★★ 挑战' };
 var G = { idx: 0, stars: 0, answers: [], answered: false, flat: [] };
+var LAST = null;
 
 (function buildFlat() {
   for (var bi = 0; bi < BANKS.length; bi++) {
@@ -485,6 +487,67 @@ function showReport() {
     }
   }
   document.getElementById('mist-list').innerHTML = mh;
+
+  LAST = { per: per, lv: lv, right: right, total: total, pct: pct, answers: G.answers.slice(), flat: G.flat };
+}
+
+/* ===== 一键复制结果，方便回传给老师 / 复测对比 ===== */
+function fallbackCopy(text, cb) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) { }
+  document.body.removeChild(ta);
+  if (cb) cb();
+}
+
+function copyResult() {
+  if (!LAST) { return; }
+  var lines = [];
+  lines.push('二年级数学诊断结果');
+  lines.push('总分：' + LAST.right + '/' + LAST.total + '（' + LAST.pct + '分）');
+  lines.push('');
+  lines.push('【板块】');
+  for (var i = 0; i < LAST.per.length; i++) {
+    var p = LAST.per[i];
+    var rate = p.tot ? p.ok / p.tot : 0;
+    var mark = rate >= 1 ? '🟢' : (rate >= 0.67 ? '🟡' : '🔴');
+    lines.push(mark + ' ' + p.name + '：' + p.ok + '/' + p.tot);
+  }
+  lines.push('');
+  lines.push('【难度】★基础 ' + LAST.lv[1].ok + '/' + LAST.lv[1].tot +
+    '  ★★中等 ' + LAST.lv[2].ok + '/' + LAST.lv[2].tot +
+    '  ★★★挑战 ' + LAST.lv[3].ok + '/' + LAST.lv[3].tot);
+  lines.push('');
+  var wrongs = [];
+  for (var j = 0; j < LAST.answers.length; j++) {
+    var a = LAST.answers[j];
+    if (a.correct) continue;
+    var it = LAST.flat[a.idx];
+    wrongs.push('第' + (a.idx + 1) + '题（' + it.name + '·' + LV_NAME[it.lv] + '）：选了「' +
+      it.opts[a.pick] + '」，正确「' + it.opts[it.a] + '」');
+  }
+  lines.push('【错题】' + (wrongs.length ? '' : '无'));
+  for (var k = 0; k < wrongs.length; k++) lines.push(wrongs[k]);
+
+  var text = lines.join('\n');
+  var btn = document.getElementById('copy-btn');
+  function done() {
+    if (!btn) return;
+    var old = btn.textContent;
+    btn.textContent = '✅ 已复制，去粘贴给老师';
+    setTimeout(function () { btn.textContent = old; }, 2600);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
 }
 
 window.startQuiz = startQuiz;
