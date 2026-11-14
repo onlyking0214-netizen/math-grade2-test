@@ -100,6 +100,13 @@
   .m-a b{color:#b91c1c}
   .m-a b.good{color:var(--ok)}
   .m-w{font-size:13.5px;color:var(--muted)}
+  .code-box{margin-top:12px;padding:12px 13px;border-radius:12px;background:#f0fdf4;border:1px solid #bbf7d0}
+  .code-lab{font-size:13.5px;color:#166534;margin-bottom:7px}
+  .code-val{
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:19px;font-weight:700;
+    letter-spacing:1.2px;color:#14532d;background:#fff;border:1px dashed #86efac;border-radius:8px;
+    padding:9px 11px;text-align:center;user-select:all;-webkit-user-select:all;word-break:break-all;
+  }
   /* ===== 手机适配 ===== */
   @media (max-width: 430px){
     body{padding:12px 11px calc(28px + env(safe-area-inset-bottom))}
@@ -200,8 +207,13 @@
         <ul class="mist-list" id="mist-list"></ul>
       </details>
 
-      <button id="copy-btn" class="btn ghost" style="margin-top:18px" type="button" onclick="copyResult()">📋 复制结果（发给老师）</button>
-      <button class="btn primary" style="margin-top:10px" type="button" onclick="startQuiz()">再测一次 🔄</button>
+      <button id="share-btn" class="btn primary" style="margin-top:18px" type="button" onclick="shareResult()">📤 一键发给老师</button>
+      <div id="code-box" class="code-box hidden">
+        <div class="code-lab">链接已复制。没复制成功也不要紧，把下面这串短码发过去就行：</div>
+        <div class="code-val" id="code-val">—</div>
+      </div>
+      <button id="copy-btn" class="btn ghost" type="button" onclick="copyResult()">📋 复制文字结果</button>
+      <button class="btn ghost" type="button" onclick="startQuiz()">再测一次 🔄</button>
       <button class="btn ghost" type="button" onclick="backHome()">回到首页</button>
     </div>
   </section>
@@ -311,6 +323,102 @@ var BANKS = [
 var LV_NAME = { 1: '★ 基础', 2: '★★ 中等', 3: '★★★ 挑战' };
 var G = { idx: 0, stars: 0, answers: [], answered: false, flat: [] };
 var LAST = null;
+
+/* ============================================================
+   结果编码：24 题 × 2bit → 8 个字符的短码
+   v1-XXXXXXXX  —— 数据不上传任何服务器，全部编在链接里
+   ============================================================ */
+var ALPH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+
+function encodeCode(answers) {
+  var picks = [];
+  for (var i = 0; i < G.flat.length; i++) {
+    var p = 3;
+    for (var j = 0; j < answers.length; j++) {
+      if (answers[j].idx === i) { p = answers[j].pick; break; }
+    }
+    picks.push(p < 0 || p > 3 ? 3 : p);
+  }
+  var s = '';
+  for (var k = 0; k < picks.length; k += 3) {
+    var v = 0;
+    for (var m = 0; m < 3; m++) {
+      var d = picks[k + m] === undefined ? 3 : picks[k + m];
+      v = v * 4 + d;
+    }
+    s += ALPH[v];
+  }
+  return 'v1-' + s;
+}
+
+function decodeCode(code) {
+  if (!code) return null;
+  var body = String(code).trim();
+  var pref = 'v1-';
+  if (body.slice(0, 3) === pref) body = body.slice(3);
+  if (body.length * 3 < G.flat.length) return null;
+  var picks = [];
+  for (var i = 0; i < body.length; i++) {
+    var v = ALPH.indexOf(body.charAt(i));
+    if (v < 0) return null;
+    picks.push(Math.floor(v / 16) % 4);
+    picks.push(Math.floor(v / 4) % 4);
+    picks.push(v % 4);
+  }
+  return picks.slice(0, G.flat.length);
+}
+
+function showReportFromPicks(picks) {
+  G.answers = [];
+  G.idx = G.flat.length;
+  G.stars = 0;
+  for (var i = 0; i < picks.length; i++) {
+    var ok = (picks[i] === G.flat[i].a);
+    G.answers.push({ idx: i, pick: picks[i], correct: ok, bi: G.flat[i].bi, lv: G.flat[i].lv });
+    if (ok) G.stars++;
+  }
+  document.getElementById('start-screen').classList.add('hidden');
+  showReport();
+}
+
+/* 从链接里恢复报告：把 #r=v1-xxxx 发给别人，对方一打开就直接看到报告 */
+function bootFromHash() {
+  var h = location.hash || '';
+  var m = h.match(/[#&]r=([A-Za-z0-9_-]+)/);
+  if (!m) return;
+  var picks = decodeCode(m[1]);
+  if (picks && picks.length === G.flat.length) showReportFromPicks(picks);
+}
+
+/* 一键发给老师：生成带结果的链接，优先调用系统分享（微信/QQ 直接发） */
+function shareResult() {
+  if (!LAST) return;
+  var code = encodeCode(LAST.answers);
+  var base = location.origin + location.pathname + location.search;
+  var url = base + '#r=' + code;
+  var box = document.getElementById('code-box');
+  var val = document.getElementById('code-val');
+  if (val) val.textContent = code;
+  if (box) box.classList.remove('hidden');
+
+  var btn = document.getElementById('share-btn');
+  function flash(txt) {
+    if (!btn) return;
+    var old = btn.textContent;
+    btn.textContent = txt;
+    setTimeout(function () { btn.textContent = old; }, 2600);
+  }
+
+  var summary = '二年级数学诊断：' + LAST.right + '/' + LAST.total + ' 分（' + LAST.pct + '分）。打开链接直接看报告：';
+
+  if (navigator.share) {
+    navigator.share({ title: '二年级数学诊断报告', text: summary, url: url })
+      .then(function () { flash('✅ 已发出'); })
+      .catch(function () { fallbackCopy(url, function () { flash('✅ 链接已复制'); }); });
+  } else {
+    fallbackCopy(url, function () { flash('✅ 链接已复制'); });
+  }
+}
 
 (function buildFlat() {
   for (var bi = 0; bi < BANKS.length; bi++) {
@@ -554,6 +662,10 @@ window.startQuiz = startQuiz;
 window.backHome = backHome;
 window.nextQuestion = nextQuestion;
 window.pickOpt = pickOpt;
+window.copyResult = copyResult;
+window.shareResult = shareResult;
+
+bootFromHash();
 </script>
 </body>
 </html>
